@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on STEEVdotnet</title>
-    <link>https://steev.net/post/</link>
+    <link>/post/</link>
     <description>Recent content in Posts on STEEVdotnet</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 04 May 2020 13:13:50 +0000</lastBuildDate>
     
-	<atom:link href="https://steev.net/post/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Test</title>
-      <link>https://steev.net/test-post/</link>
+      <link>/test-post/</link>
       <pubDate>Mon, 04 May 2020 13:13:50 +0000</pubDate>
       
-      <guid>https://steev.net/test-post/</guid>
+      <guid>/test-post/</guid>
       <description>Just a test post Testing things out</description>
+      
     </item>
     
   </channel>
