@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>blog on STEEVdotnet</title>
-    <link>/tags/blog/</link>
-    <description>Recent content in blog on STEEVdotnet</description>
+    <title>arm64 on STEEVdotnet</title>
+    <link>/tags/arm64/</link>
+    <description>Recent content in arm64 on STEEVdotnet</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2020 Steev Klimaszewsk.</copyright>
     <lastBuildDate>Sat, 16 May 2020 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="/tags/arm64/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -22,16 +22,6 @@
 His branch is https://github.com/andersson/kernel/commits/wip/c630-5.7
 What I&amp;rsquo;ve done so far to get it working:
 git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git pushd linux touch .scmversion git remote add bamse https://github.com/andersson/kernel git remote add robclark https://github.com/freedreno/kernel-msm git fetch --all --no-tags # I don&amp;#39;t care about tags, and rob&amp;#39;s tree throws some errors with the for-3.6 and for-3.</description>
-      
-    </item>
-    
-    <item>
-      <title>First Blog Post</title>
-      <link>/content/post/first-post/</link>
-      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/content/post/first-post/</guid>
-      <description>Welp, let&amp;rsquo;s try this again. See if hosting a blog via github and letting me push automatically updating the blog is better than having to login to a website and randomly enter text and shit.</description>
       
     </item>
     

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.70.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark"><title>Lenovo Yoga C630 Progress&nbsp;&ndash;&nbsp;STEEVdotnet</title><link rel="stylesheet" href="/css/core.min.172440dadff3b0541f66212c426eb882bf8d702a8668d6ce1a8d8e4f8d39cda8e8631458b3cad67c551357741f39b3eb.css" integrity="sha384-FyRA2t/zsFQfZiEsQm64gr&#43;NcCqGaNbOGo2OT405zajoYxRYs8rWfFUTV3QfObPr"><meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Lenovo Yoga C630 Progress" /><body><section id="header">
+    <div class="header wrap"><span class="header left-side"><a class="site home" href="/"><span class="site name">STEEVdotnet</span></a></span>
+        <span class="header right-side"><div class="nav wrap"><nav clss="nav"><a class="nav item" href="/categories/">Categories</a><a class="nav item" href="/tags/">Tags</a><a class="nav item" href="/about/">About</a><a class="nav item" href="https://gohugo.io/"target="_blank">Hugo</a></nav></div></span></div><div class="site slogan"><span class="title">100% JavaScript-free</span></div></section><section id="content"><div class="article-container"><section class="article header">
+    <h1 class="article title">Lenovo Yoga C630 Progress</h1><p class="article date">May 16, 2020</p></section><article class="article markdown-body"><h1 id="progress-so-far-with-the-lenovo-yoga-c630">Progress so far with the Lenovo Yoga C630</h1>
+<p>Thanks to <a href="https://github.com/andersson"target="_blank">Bamse</a> we now have both USB-C ports working on the c630.</p>
+<p>His branch is <a href="https://github.com/andersson/kernel/commits/wip/c630-5.7">https://github.com/andersson/kernel/commits/wip/c630-5.7</a></p>
+<p>What I&rsquo;ve done so far to get it working:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git
+<span class="nb">pushd</span> linux
+touch .scmversion
+git remote add bamse https://github.com/andersson/kernel
+git remote add robclark https://github.com/freedreno/kernel-msm
+git fetch --all --no-tags <span class="c1"># I don&#39;t care about tags, and rob&#39;s tree throws some errors with the for-3.6 and for-3.7 tags</span>
+git merge bamse/wip/c630-5.7
+git cherry-pick f77b935
+git cherry-pick a59a400
+git cherry-pick eceafb9
+git cherry-pick 7e95fcb
+git cherry-pick e5fdba1
+git cherry-pick 89a4c04
+git cherry-pick <span class="m">3395035</span>
+git cherry-pick fa13722
+git cherry-pick 86888de
+<span class="c1"># On kali systems, I also apply the kali wifi injection patch</span>
+wget https://gitlab.com/kalilinux/packages/linux/-/raw/kali/master/debian/patches/features/all/kali-wifi-injection.patch
+patch -p1 &lt; kali-wifi-injection.patch
+make defconfig
+make menuconfig
+</code></pre></div><p>(all kinds of personal changes that I care about - you can find my config at <a href="https://dev.gentoo.org/~steev/files/lenovo-yoga-c630-5.7.0-rc5.config">https://dev.gentoo.org/~steev/files/lenovo-yoga-c630-5.7.0-rc5.config</a>)</p>
+<p>For my Kali systems - (and because I&rsquo;m cross compiling):
+<code>make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc) deb-pkg</code></p>
+<p>For my Gentoo systems -
+<code>make -j$(nproc) &amp;&amp; make modules_install &amp;&amp; make dtbs_install &amp;&amp; make install</code></p>
+<p><code>popd</code></p>
+<p>In terms of firmware, things get a wee bit funky.  I&rsquo;m a bit lazy, so I&rsquo;ll use a script that <a href="https://github.com/celliwig"target="_blank">Celliwig</a> wrote (<a href="https://github.com/celliwig/lenovo-yoga-c630">https://github.com/celliwig/lenovo-yoga-c630</a>)
+This is all done on a c630 system, since we have to pull some signed firmware from the Windows partition(s?)</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/celliwig/lenovo-yoga-c630
+<span class="nb">pushd</span> lenovo-yoga-c630/yoga_fw_extract
+./yoga_fw_extract.sh
+<span class="nb">popd</span>
+</code></pre></div><p>We&rsquo;re also going to need a copy of the linux-firmware git repo (though on Gentoo, the linux-firmware package is new enough)</p>
+<p><code>git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/firmware/linux-firmware.git</code></p>
+<p>Now lets move some files around&hellip;</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">pushd</span> /lib/firmware/qcom
+sudo mkdir -p LENOVO/81JL
+<span class="c1"># Because I couldn&#39;t get things to work properly with symlinks...</span>
+cp c630/* LENOVO/81JL/
+sudo cp ~/linux-firmware/qcom/sdm845/*.json LENOVO/81JL/
+<span class="c1"># This one is just because, well, I was tired of the initramfs complaining about possibly missing firmware...</span>
+sudo cp ~/linux-firmware/qcom/sdm845/a630_zap.mbn .
+<span class="nb">popd</span>
+</code></pre></div><p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)</p>
+<h1 id="services">Services</h1>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mkdir services
+<span class="nb">cd</span> services
+git clone https://github.com/andersson/qrtr
+<span class="nb">cd</span> qrtr
+make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> qrtr-ns.service
+<span class="nb">cd</span> ..
+apt install libudev-dev <span class="c1">#on Debian based systems</span>
+git clone https://github.com/andersson/rmtfs
+<span class="nb">cd</span> rmtfs
+make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> rmtfs.service
+<span class="nb">cd</span> ..
+git clone https://github.com/andersson/pd-mapper
+<span class="nb">cd</span> pd-mapper
+make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> pd-mapper.service
+git clone https://github.com/andersson/tqftpserv
+make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> tqftpserv.service
+<span class="nb">cd</span> ~
+</code></pre></div><p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started of (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation.</p>
+</article><section class="article labels"><a class="tag" href=/tags/blog/>blog</a><a class="tag" href=/tags/text/>text</a><a class="tag" href=/tags/linux/>linux</a><a class="tag" href=/tags/c630/>c630</a><a class="tag" href=/tags/lenovo/>lenovo</a><a class="tag" href=/tags/arm64/>arm64</a></section><section class="article author"><p class="name">steev</p><div class="bio">Gentoo Linux developer, Kali Linux developer</div><div class="details"><a class="item" href="https://github.com/steev" target="_blank"><span class="iconfont icon-github"></span>&nbsp;steev</a><a class="item" href="https://twitter.com/steevdave" target="_blank"><span class="iconfont icon-twitter"></span>&nbsp;@steevdave</a></div>
+</section></div>
+<div class="article bottom"><section class="article navigation"><p><a class="link" href="/content/post/first-post/"><span class="li iconfont icon-article"></span>First Blog Post</a></p></section></div></section><section id="footer"><div style="display:flex; flex-direction:row; flex-wrap:wrap; justify-content:space-between;">
+<p style="flex-shrink: 0;">© 2020 Steev Klimaszewsk.</p>
+<p><span>Powered by </span><a
+    href="https://gohugo.io" target="_blank">Hugo</a><span> and the <a
+    href="https://themes.gohugo.io/hugo-notepadium/" target="_blank">Notepadium</a></p>
+</div>
+</section></body>
+
+</html>
