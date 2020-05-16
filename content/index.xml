@@ -13,16 +13,6 @@
     
     
     <item>
-      <title>About</title>
-      <link>/content/about/</link>
-      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/content/about/</guid>
-      <description>I&amp;rsquo;m just me, you know?</description>
-      
-    </item>
-    
-    <item>
       <title>Posts</title>
       <link>/content/post/</link>
       <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
