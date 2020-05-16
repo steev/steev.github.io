@@ -73,6 +73,25 @@ git clone https://github.com/andersson/tqftpserv
 make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> tqftpserv.service
 <span class="nb">cd</span> ~
 </code></pre></div><p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started of (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation.</p>
+<p>Update: To get audio working, you&rsquo;re going to need the ucm files as well,
+although there&rsquo;s a bit of question about the proper place they go.  People have
+had different results, I had to move mine into a specific directory that isn&rsquo;t
+in the repo - if that doesn&rsquo;t work, then you can try the same folder as mine,
+but typically you can check the dmesg output to see where it&rsquo;s trying to load
+the files from - or like me, I just copy to both places&hellip;</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/srinivas-kandagatla/alsa-ucm-conf
+<span class="nb">cd</span> alsa-ucm-conf/ucm2
+<span class="c1"># First copy the codecs we need</span>
+sudo cp -a codecs/w* /usr/share/alsa/ucm2/codecs/
+<span class="c1"># Now the actual profiles</span>
+sudo cp -a Lenovo-YOGA-C63 /usr/share/alsa/ucm2/
+<span class="nb">cd</span> /usr/share/alsa/ucm2
+sudo cp -a Lenovo-YOGA-C63 Lenovo-YOGA-C630-13Q50
+<span class="nb">cd</span> Lenovo-YOGA-C630-13Q50
+mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_13Q50.conf
+</code></pre></div><p>One other thing to note, is that X doesn&rsquo;t run properly currently, you will get
+lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve
+personally tested Sway and Gnome.</p>
 </article><section class="article labels"><a class="tag" href=/tags/blog/>blog</a><a class="tag" href=/tags/text/>text</a><a class="tag" href=/tags/linux/>linux</a><a class="tag" href=/tags/c630/>c630</a><a class="tag" href=/tags/lenovo/>lenovo</a><a class="tag" href=/tags/arm64/>arm64</a></section><section class="article author"><p class="name">steev</p><div class="bio">Gentoo Linux developer, Kali Linux developer</div><div class="details"><a class="item" href="https://github.com/steev" target="_blank"><span class="iconfont icon-github"></span>&nbsp;steev</a><a class="item" href="https://twitter.com/steevdave" target="_blank"><span class="iconfont icon-twitter"></span>&nbsp;@steevdave</a></div>
 </section></div>
 <div class="article bottom"><section class="article navigation"><p><a class="link" href="/content/post/first-post/"><span class="li iconfont icon-article"></span>First Blog Post</a></p></section></div></section><section id="footer"><div style="display:flex; flex-direction:row; flex-wrap:wrap; justify-content:space-between;">
