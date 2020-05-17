@@ -22,7 +22,7 @@
 His branch is https://github.com/andersson/kernel/commits/wip/c630-5.7
 What I&amp;rsquo;ve done so far to get it working:
 This version of steps is what I use, you will likely want to skip Linus&amp;rsquo; tree, and just use bamse as the base, unless you want to deal with merge conflicts.
-##Option 1:##
+##Option 1:
 git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git pushd linux touch .</description>
       
     </item>
