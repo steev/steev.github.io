@@ -21,7 +21,9 @@
       <description>Progress so far with the Lenovo Yoga C630 Thanks to Bamse we now have both USB-C ports working on the c630.
 His branch is https://github.com/andersson/kernel/commits/wip/c630-5.7
 What I&amp;rsquo;ve done so far to get it working:
-git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git pushd linux touch .scmversion git remote add bamse https://github.com/andersson/kernel git remote add robclark https://github.com/freedreno/kernel-msm git fetch --all --no-tags # I don&amp;#39;t care about tags, and rob&amp;#39;s tree throws some errors with the for-3.6 and for-3.</description>
+This version of steps is what I use, you will likely want to skip Linus&amp;rsquo; tree, and just use bamse as the base, unless you want to deal with merge conflicts.
+##Option 1:##
+git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git pushd linux touch .</description>
       
     </item>
     

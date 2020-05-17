@@ -9,11 +9,18 @@
 <p>Thanks to <a href="https://github.com/andersson"target="_blank">Bamse</a> we now have both USB-C ports working on the c630.</p>
 <p>His branch is <a href="https://github.com/andersson/kernel/commits/wip/c630-5.7">https://github.com/andersson/kernel/commits/wip/c630-5.7</a></p>
 <p>What I&rsquo;ve done so far to get it working:</p>
+<p><strong>This version of steps is what I use, you will likely want to skip Linus&rsquo; tree,
+and just use bamse as the base, unless you want to deal with merge conflicts.</strong></p>
+<p>##Option 1:##</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git
 <span class="nb">pushd</span> linux
 touch .scmversion
 git remote add bamse https://github.com/andersson/kernel
-git remote add robclark https://github.com/freedreno/kernel-msm
+</code></pre></div><hr>
+<h2 id="option2">Option2:##</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/andersson/kernel -b wip/c630-5.7
+</code></pre></div><h2 id="continue">Continue:##</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git remote add robclark https://github.com/freedreno/kernel-msm
 git fetch --all --no-tags <span class="c1"># I don&#39;t care about tags, and rob&#39;s tree throws some errors with the for-3.6 and for-3.7 tags</span>
 git merge bamse/wip/c630-5.7
 git cherry-pick f77b935
@@ -31,11 +38,10 @@ patch -p1 &lt; kali-wifi-injection.patch
 make defconfig
 make menuconfig
 </code></pre></div><p>(all kinds of personal changes that I care about - you can find my config at <a href="https://dev.gentoo.org/~steev/files/lenovo-yoga-c630-5.7.0-rc5.config">https://dev.gentoo.org/~steev/files/lenovo-yoga-c630-5.7.0-rc5.config</a>)</p>
-<p>For my Kali systems - (and because I&rsquo;m cross compiling):
-<code>make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc) deb-pkg</code></p>
-<p>For my Gentoo systems -
-<code>make -j$(nproc) &amp;&amp; make modules_install &amp;&amp; make dtbs_install &amp;&amp; make install</code></p>
-<p><code>popd</code></p>
+<p>For my Kali systems - (and because I&rsquo;m cross compiling):</p>
+<p><code>make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc) deb-pkg</code></p>
+<p>For my Gentoo systems -</p>
+<p><code>make -j$(nproc) &amp;&amp; make modules_install &amp;&amp; make dtbs_install &amp;&amp; make install</code></p>
 <p>In terms of firmware, things get a wee bit funky.  I&rsquo;m a bit lazy, so I&rsquo;ll use a script that <a href="https://github.com/celliwig"target="_blank">Celliwig</a> wrote (<a href="https://github.com/celliwig/lenovo-yoga-c630">https://github.com/celliwig/lenovo-yoga-c630</a>)
 This is all done on a c630 system, since we have to pull some signed firmware from the Windows partition(s?)</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/celliwig/lenovo-yoga-c630
@@ -54,7 +60,7 @@ sudo cp ~/linux-firmware/qcom/sdm845/*.json LENOVO/81JL/
 sudo cp ~/linux-firmware/qcom/sdm845/a630_zap.mbn .
 <span class="nb">popd</span>
 </code></pre></div><p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)</p>
-<h1 id="services">Services</h1>
+<h2 id="services-">Services</h2>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mkdir services
 <span class="nb">cd</span> services
 git clone https://github.com/andersson/qrtr
@@ -73,7 +79,8 @@ git clone https://github.com/andersson/tqftpserv
 make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> tqftpserv.service
 <span class="nb">cd</span> ~
 </code></pre></div><p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started of (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation.</p>
-<p>Update: To get audio working, you&rsquo;re going to need the ucm files as well,
+<p>##Update:##
+To get audio working, you&rsquo;re going to need the ucm files as well,
 although there&rsquo;s a bit of question about the proper place they go.  People have
 had different results, I had to move mine into a specific directory that isn&rsquo;t
 in the repo - if that doesn&rsquo;t work, then you can try the same folder as mine,
@@ -89,9 +96,8 @@ sudo cp -a Lenovo-YOGA-C63 /usr/share/alsa/ucm2/
 sudo cp -a Lenovo-YOGA-C63 Lenovo-YOGA-C630-13Q50
 <span class="nb">cd</span> Lenovo-YOGA-C630-13Q50
 mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_13Q50.conf
-</code></pre></div><p>One other thing to note, is that X doesn&rsquo;t run properly currently, you will get
-lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve
-personally tested Sway and Gnome.</p>
+</code></pre></div><p>###Notes###</p>
+<p>X doesn&rsquo;t run properly currently, you will get lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve personally tested Sway and Gnome.</p>
 <p>Another thing to note, the reason why I&rsquo;m cherry picking from robclark instead
 of just merging in his wip/c630-5.7 branch, is because of commit <code>f82139e</code> - you
 absolutely can use it, however, you also need to use his dtbloader.  I didn&rsquo;t
