@@ -57,9 +57,7 @@ This is all done on a c630 system, since we have to pull some signed firmware fr
 sudo mkdir -p LENOVO/81JL
 <span class="c1"># Because I couldn&#39;t get things to work properly with symlinks...</span>
 cp c630/* LENOVO/81JL/
-sudo cp ~/linux-firmware/qcom/sdm845/*.json LENOVO/81JL/
-<span class="c1"># This one is just because, well, I was tired of the initramfs complaining about possibly missing firmware...</span>
-sudo cp ~/linux-firmware/qcom/sdm845/a630_zap.mbn .
+sudo cp ~/linux-firmware/qcom/sdm845/*.jsn LENOVO/81JL/
 <span class="nb">popd</span>
 </code></pre></div><h3 id="services">Services</h3>
 <p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)
