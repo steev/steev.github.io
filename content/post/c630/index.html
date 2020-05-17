@@ -11,17 +11,17 @@
 <p>What I&rsquo;ve done so far to get it working:</p>
 <p><strong>This version of steps is what I use, you will likely want to skip Linus&rsquo; tree,
 and just use bamse as the base, unless you want to deal with merge conflicts.</strong></p>
-<p>##Option 1:</p>
+<h3 id="option-1">Option 1:</h3>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git
 <span class="nb">pushd</span> linux
 touch .scmversion
 git remote add bamse https://github.com/andersson/kernel
 </code></pre></div><hr>
-<h2 id="option2">Option2:</h2>
+<h3 id="option2">Option2:</h3>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/andersson/kernel -b wip/c630-5.7 linux
 <span class="nb">pushd</span> linux
 touch .scmversion
-</code></pre></div><h2 id="continue">Continue:</h2>
+</code></pre></div><h3 id="continue">Continue:</h3>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git remote add robclark https://github.com/freedreno/kernel-msm
 git fetch --all --no-tags <span class="c1"># I don&#39;t care about tags, and rob&#39;s tree throws some errors with the for-3.6 and for-3.7 tags</span>
 git merge bamse/wip/c630-5.7
