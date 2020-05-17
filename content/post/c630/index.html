@@ -61,8 +61,9 @@ sudo cp ~/linux-firmware/qcom/sdm845/*.json LENOVO/81JL/
 <span class="c1"># This one is just because, well, I was tired of the initramfs complaining about possibly missing firmware...</span>
 sudo cp ~/linux-firmware/qcom/sdm845/a630_zap.mbn .
 <span class="nb">popd</span>
-</code></pre></div><p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)</p>
-<h3 id="services">Services</h3>
+</code></pre></div><h3 id="services">Services</h3>
+<p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)
+As of 5.7, qrtr-ns is implemented in the kernel, however, because the other services depen on libqrtr.so from it, we still need to install it.  qrtr-ns also detects whether you&rsquo;re on &gt; 5.7, and if so, it does nothing.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mkdir services
 <span class="nb">cd</span> services
 git clone https://github.com/andersson/qrtr
