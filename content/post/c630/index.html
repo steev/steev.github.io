@@ -24,7 +24,7 @@ touch .scmversion
 </code></pre></div><h3 id="continue">Continue:</h3>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git remote add robclark https://github.com/freedreno/kernel-msm
 git fetch --all --no-tags <span class="c1"># I don&#39;t care about tags, and rob&#39;s tree throws some errors with the for-3.6 and for-3.7 tags</span>
-git merge bamse/wip/c630-5.7
+git merge bamse/wip/c630-5.7 <span class="c1"># Only if you&#39;re using Option 1</span>
 git cherry-pick f77b935
 git cherry-pick a59a400
 git cherry-pick eceafb9
