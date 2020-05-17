@@ -18,7 +18,9 @@ touch .scmversion
 git remote add bamse https://github.com/andersson/kernel
 </code></pre></div><hr>
 <h2 id="option2">Option2:##</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/andersson/kernel -b wip/c630-5.7
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/andersson/kernel -b wip/c630-5.7 linux
+<span class="nb">pushd</span> linux
+touch .scmversion
 </code></pre></div><h2 id="continue">Continue:##</h2>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git remote add robclark https://github.com/freedreno/kernel-msm
 git fetch --all --no-tags <span class="c1"># I don&#39;t care about tags, and rob&#39;s tree throws some errors with the for-3.6 and for-3.7 tags</span>
