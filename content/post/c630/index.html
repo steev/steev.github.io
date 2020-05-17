@@ -58,6 +58,10 @@ sudo mkdir -p LENOVO/81JL
 <span class="c1"># Because I couldn&#39;t get things to work properly with symlinks...</span>
 cp c630/* LENOVO/81JL/
 sudo cp ~/linux-firmware/qcom/sdm845/*.jsn LENOVO/81JL/
+<span class="c1"># We need the zap firmware for the GPU shader, which celliwig&#39;s script doesn&#39;t seem to pull.</span>
+sudo mount <span class="k">$(</span>blkid -L Windows<span class="k">)</span> /mnt
+find /mnt/Windows -iname qcdxkmsuc850.mbn
+sudo cp <span class="nv">$one_of_the_above_results</span> LENOVO/81JL/
 <span class="nb">popd</span>
 </code></pre></div><h3 id="services">Services</h3>
 <p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)
