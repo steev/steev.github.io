@@ -62,7 +62,7 @@ sudo cp ~/linux-firmware/qcom/sdm845/*.json LENOVO/81JL/
 sudo cp ~/linux-firmware/qcom/sdm845/a630_zap.mbn .
 <span class="nb">popd</span>
 </code></pre></div><p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)</p>
-<h2 id="services-">Services</h2>
+<h3 id="services">Services</h3>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mkdir services
 <span class="nb">cd</span> services
 git clone https://github.com/andersson/qrtr
@@ -81,8 +81,8 @@ git clone https://github.com/andersson/tqftpserv
 make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> tqftpserv.service
 <span class="nb">cd</span> ~
 </code></pre></div><p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started of (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation.</p>
-<p>##Update:##
-To get audio working, you&rsquo;re going to need the ucm files as well,
+<h3 id="update">Update:</h3>
+<p>To get audio working, you&rsquo;re going to need the ucm files as well,
 although there&rsquo;s a bit of question about the proper place they go.  People have
 had different results, I had to move mine into a specific directory that isn&rsquo;t
 in the repo - if that doesn&rsquo;t work, then you can try the same folder as mine,
@@ -98,7 +98,7 @@ sudo cp -a Lenovo-YOGA-C63 /usr/share/alsa/ucm2/
 sudo cp -a Lenovo-YOGA-C63 Lenovo-YOGA-C630-13Q50
 <span class="nb">cd</span> Lenovo-YOGA-C630-13Q50
 mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_13Q50.conf
-</code></pre></div><p>###Notes###</p>
+</code></pre></div><h3 id="notes">Notes</h3>
 <p>X doesn&rsquo;t run properly currently, you will get lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve personally tested Sway and Gnome.</p>
 <p>Another thing to note, the reason why I&rsquo;m cherry picking from robclark instead
 of just merging in his wip/c630-5.7 branch, is because of commit <code>f82139e</code> - you
