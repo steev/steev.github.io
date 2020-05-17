@@ -92,6 +92,13 @@ mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_
 </code></pre></div><p>One other thing to note, is that X doesn&rsquo;t run properly currently, you will get
 lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve
 personally tested Sway and Gnome.</p>
+<p>Another thing to note, the reason why I&rsquo;m cherry picking from robclark instead
+of just merging in his wip/c630-5.7 branch, is because of commit <code>f82139e</code> - you
+absolutely can use it, however, you also need to use his dtbloader.  I didn&rsquo;t
+want to but if you want to play around, he&rsquo;s got prebuilt binaries at
+[https://people.freedesktop.org/~robclark/DtbLoader.efi] and
+[https://people.freedesktop.org/~robclark/Shell.efi] - and a readme for it can
+be found at [https://github.com/robclark/edk2/blob/dtbloader-chid/Readme.md]</p>
 </article><section class="article labels"><a class="tag" href=/tags/blog/>blog</a><a class="tag" href=/tags/text/>text</a><a class="tag" href=/tags/linux/>linux</a><a class="tag" href=/tags/c630/>c630</a><a class="tag" href=/tags/lenovo/>lenovo</a><a class="tag" href=/tags/arm64/>arm64</a></section><section class="article author"><p class="name">steev</p><div class="bio">Gentoo Linux developer, Kali Linux developer</div><div class="details"><a class="item" href="https://github.com/steev" target="_blank"><span class="iconfont icon-github"></span>&nbsp;steev</a><a class="item" href="https://twitter.com/steevdave" target="_blank"><span class="iconfont icon-twitter"></span>&nbsp;@steevdave</a></div>
 </section></div>
 <div class="article bottom"><section class="article navigation"><p><a class="link" href="/content/post/first-post/"><span class="li iconfont icon-article"></span>First Blog Post</a></p></section></div></section><section id="footer"><div style="display:flex; flex-direction:row; flex-wrap:wrap; justify-content:space-between;">
