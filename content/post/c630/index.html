@@ -47,9 +47,9 @@ make menuconfig
 <h3 id="bootloaderkernel-command-line">Bootloader/Kernel Command Line:</h3>
 <p>We need some arguments passed to boot, it doesn&rsquo;t matter if you hard code them
 in, or if you pass them via the bootloader.</p>
-<p><code>pd_ignore_unused</code> - Keep all ower domains already enabled by bootloader on, even if no driver has claimed them.
-<code>clk_ignore_unused</code> - Keep boot clocks on, even if no driver has claimed them.
-<code>efi=novamap</code> - SetVirtualAddressMap() is not called after ExitBootServices()</p>
+<p><code>pd_ignore_unused</code> - Keep all ower domains already enabled by bootloader on, even if no driver has claimed them.</p>
+<p><code>clk_ignore_unused</code> - Keep boot clocks on, even if no driver has claimed them.</p>
+<p><code>efi=novamap</code> - SetVirtualAddressMap() is not called after ExitBootServices()</p>
 <p>An example grub setup could look something like this:</p>
 <pre><code class="language-config" data-lang="config">GRUB_DEFAULT=0
 #GRUB_TIMEOUT_STYLE=hidden
