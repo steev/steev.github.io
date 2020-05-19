@@ -70,19 +70,21 @@ As of 5.7, qrtr-ns is implemented in the kernel, however, because the other serv
 <span class="nb">cd</span> services
 git clone https://github.com/andersson/qrtr
 <span class="nb">cd</span> qrtr
-make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> qrtr-ns.service
+make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&amp;</span> sudo systemctl <span class="nb">enable</span> qrtr-ns.service
+<span class="c1"># To make sure things can find libqrtr.so.1, regenerate the /etc/ld.so.cache</span>
+sudo ldconfig
 <span class="nb">cd</span> ..
 apt install libudev-dev <span class="c1">#on Debian based systems</span>
 git clone https://github.com/andersson/rmtfs
 <span class="nb">cd</span> rmtfs
-make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> rmtfs.service
+make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&amp;</span> sudo systemctl <span class="nb">enable</span> rmtfs.service
 <span class="nb">cd</span> ..
 git clone https://github.com/andersson/pd-mapper
 <span class="nb">cd</span> pd-mapper
-make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> pd-mapper.service
+make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&amp;</span> sudo systemctl <span class="nb">enable</span> pd-mapper.service
 <span class="nb">cd</span> ..
 git clone https://github.com/andersson/tqftpserv
-make <span class="o">&amp;&amp;</span> make install <span class="o">&amp;&amp;</span> systemctl <span class="nb">enable</span> tqftpserv.service
+make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&amp;</span> sudo systemctl <span class="nb">enable</span> tqftpserv.service
 <span class="nb">cd</span> ~
 </code></pre></div><p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started of (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation.</p>
 <h3 id="update">Update:</h3>
