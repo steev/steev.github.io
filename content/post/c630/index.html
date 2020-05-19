@@ -57,7 +57,8 @@ GRUB_TIMEOUT=2
 GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`
 GRUB_CMDLINE_LINUX_DEFAULT=&quot;efi=novamap pd_ignore_unused clk_ignore_unused&quot;
 GRUB_CMDLINE_LINUX=&quot;&quot;
-</code></pre><p>In terms of firmware, things get a wee bit funky.  I&rsquo;m a bit lazy, so I&rsquo;ll use a script that <a href="https://github.com/celliwig"target="_blank">Celliwig</a> wrote (<a href="https://github.com/celliwig/lenovo-yoga-c630">https://github.com/celliwig/lenovo-yoga-c630</a>)
+</code></pre><h3 id="firmware">Firmware:</h3>
+<p>In terms of firmware, things get a wee bit funky.  I&rsquo;m a bit lazy, so I&rsquo;ll use a script that <a href="https://github.com/celliwig"target="_blank">Celliwig</a> wrote (<a href="https://github.com/celliwig/lenovo-yoga-c630">https://github.com/celliwig/lenovo-yoga-c630</a>)
 This is all done on a c630 system, since we have to pull some signed firmware from the Windows partition(s?) - This script does require python2 as of 18 May 2020, so keep that in mind if you&rsquo;re using something like Ubuntu 20.04 where python3 is the default.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/celliwig/lenovo-yoga-c630
 <span class="nb">pushd</span> lenovo-yoga-c630/yoga_fw_extract
