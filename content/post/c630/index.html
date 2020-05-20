@@ -44,6 +44,7 @@ make menuconfig
 <p><code>make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc) deb-pkg</code></p>
 <p>For my Gentoo systems -</p>
 <p><code>make -j$(nproc) &amp;&amp; make modules_install &amp;&amp; make dtbs_install &amp;&amp; make install</code></p>
+<hr>
 <h3 id="bootloaderkernel-command-line">Bootloader/Kernel Command Line:</h3>
 <p>We need some arguments passed to boot, it doesn&rsquo;t matter if you hard code them
 in, or if you pass them via the bootloader.</p>
@@ -57,7 +58,10 @@ GRUB_TIMEOUT=2
 GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`
 GRUB_CMDLINE_LINUX_DEFAULT=&quot;efi=novamap pd_ignore_unused clk_ignore_unused&quot;
 GRUB_CMDLINE_LINUX=&quot;&quot;
-</code></pre><h3 id="firmware">Firmware:</h3>
+</code></pre><p>Note: if you are using the patches from Rob Clark above, you do not need
+<code>pd_ignore_unused</code> or <code>clk_ignore_unused</code> - only <code>efi=novamap</code> is required.</p>
+<hr>
+<h3 id="firmware">Firmware:</h3>
 <p>In terms of firmware, things get a wee bit funky.  I&rsquo;m a bit lazy, so I&rsquo;ll use a script that <a href="https://github.com/celliwig"target="_blank">Celliwig</a> wrote (<a href="https://github.com/celliwig/lenovo-yoga-c630">https://github.com/celliwig/lenovo-yoga-c630</a>)
 This is all done on a c630 system, since we have to pull some signed firmware from the Windows partition(s?) - This script does require python2 as of 18 May 2020, so keep that in mind if you&rsquo;re using something like Ubuntu 20.04 where python3 is the default.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/celliwig/lenovo-yoga-c630
@@ -77,7 +81,8 @@ sudo mount <span class="k">$(</span>blkid -L Windows<span class="k">)</span> /mn
 find /mnt/Windows -iname qcdxkmsuc850.mbn
 sudo cp <span class="nv">$one_of_the_above_results</span> LENOVO/81JL/
 <span class="nb">popd</span>
-</code></pre></div><h3 id="services">Services</h3>
+</code></pre></div><hr>
+<h3 id="services">Services</h3>
 <p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)
 As of 5.7, qrtr-ns is implemented in the kernel, however, because the other services depen on libqrtr.so from it, we still need to install it.  qrtr-ns also detects whether you&rsquo;re on &gt; 5.7, and if so, it does nothing.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mkdir services
@@ -100,7 +105,9 @@ make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&a
 git clone https://github.com/andersson/tqftpserv
 make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&amp;</span> sudo systemctl <span class="nb">enable</span> tqftpserv.service
 <span class="nb">cd</span> ~
-</code></pre></div><p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started of (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation.</p>
+</code></pre></div><hr>
+<p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started of (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation.</p>
+<hr>
 <h3 id="update">Update:</h3>
 <p>To get audio working, you&rsquo;re going to need the ucm files as well,
 although there&rsquo;s a bit of question about the proper place they go.  People have
@@ -118,7 +125,8 @@ sudo cp -a Lenovo-YOGA-C63 /usr/share/alsa/ucm2/
 sudo cp -a Lenovo-YOGA-C63 Lenovo-YOGA-C630-13Q50
 <span class="nb">cd</span> Lenovo-YOGA-C630-13Q50
 mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_13Q50.conf
-</code></pre></div><h3 id="notes">Notes</h3>
+</code></pre></div><hr>
+<h3 id="notes">Notes</h3>
 <p>X doesn&rsquo;t run properly currently, you will get lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve personally tested Sway and Gnome.</p>
 <p>Another thing to note, the reason why I&rsquo;m cherry picking from robclark instead
 of just merging in his wip/c630-5.7 branch, is because of commit <code>f82139e</code> - you
