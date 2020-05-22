@@ -80,6 +80,8 @@ sudo cp ~/linux-firmware/qcom/sdm845/*.jsn LENOVO/81JL/
 sudo mount <span class="k">$(</span>blkid -L Windows<span class="k">)</span> /mnt
 find /mnt/Windows -iname qcdxkmsuc850.mbn
 sudo cp <span class="nv">$one_of_the_above_results</span> LENOVO/81JL/
+<span class="c1"># Bluetooth firmware, if you want it.</span>
+sudo cp ~/linux-firmware/qca/* /lib/firmware/qca/
 <span class="nb">popd</span>
 </code></pre></div><hr>
 <h3 id="services">Services</h3>
