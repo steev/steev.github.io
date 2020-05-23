@@ -131,6 +131,10 @@ mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_
 </code></pre></div><hr>
 <h3 id="notes">Notes</h3>
 <p>X doesn&rsquo;t run properly currently, you will get lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve personally tested Sway and Gnome.</p>
+<h5 id="update-rob-clark-was-able-to-track-the-issue-down-in-mesa">Update: Rob Clark was able to track the issue down in mesa.</h5>
+<p>Update for mesa 19.3.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5192">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5192</a>
+Update for mesa 20.0.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5190">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5190</a>
+Update for Mesa 20.1.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5188">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5188</a></p>
 <p>Another thing to note, the reason why I&rsquo;m cherry picking from robclark instead
 of just merging in his wip/c630-5.7 branch, is because of commit <code>f82139e</code> - you
 absolutely can use it, however, you also need to use his dtbloader.  I didn&rsquo;t
