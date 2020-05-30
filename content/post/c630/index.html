@@ -153,7 +153,8 @@ sudo cp -a Lenovo-YOGA-C63 /usr/share/alsa/ucm2/
 <span class="nb">cd</span> /usr/share/alsa/ucm2
 sudo cp -a Lenovo-YOGA-C63 Lenovo-YOGA-C630-13Q50
 <span class="nb">cd</span> Lenovo-YOGA-C630-13Q50
-mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_13Q50.conf
+sudo mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_13Q50.conf
+sudo ln -s LENOVO-81JL-LenovoYOGAC630_13Q50.conf /usr/share/alsa/ucm2/Lenovo-YOGA-C630-13Q50/Lenovo-YOGA-C630-13Q50.conf
 </code></pre></div><hr>
 <h3 id="notes">Notes</h3>
 <p>X doesn&rsquo;t run properly currently, you will get lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve personally tested Sway and Gnome.</p>
