@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.69.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<html lang="en"><meta charset="utf-8"><meta name="generator" content="Hugo 0.70.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="supported-color-schemes" content="light dark"><title>Lenovo Yoga C630 Progress&nbsp;&ndash;&nbsp;STEEVdotnet</title><link rel="stylesheet" href="/css/core.min.172440dadff3b0541f66212c426eb882bf8d702a8668d6ce1a8d8e4f8d39cda8e8631458b3cad67c551357741f39b3eb.css" integrity="sha384-FyRA2t/zsFQfZiEsQm64gr&#43;NcCqGaNbOGo2OT405zajoYxRYs8rWfFUTV3QfObPr"><meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Lenovo Yoga C630 Progress" /><body><section id="header">
@@ -117,24 +117,6 @@ git clone https://github.com/andersson/tqftpserv
 make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&amp;</span> sudo systemctl <span class="nb">enable</span> --now tqftpserv.service
 <span class="nb">cd</span> ~
 </code></pre></div><hr>
-<h5 id="slow-wifi-load">Slow wifi load?</h5>
-<p>Some systems, wifi may be slow to start up.  This is because of a long default
-timeout from the firmware loader(?) - a way around this is to <code>echo 1 &gt; /sys/class/firmware/timeout</code>.</p>
-<p>Locally, I&rsquo;ve got a (crappy) systemd service to do this, because I want it to start before the qrtr-ns service starts up.</p>
-<p>Something along these lines:</p>
-<pre><code class="language-config" data-lang="config">[Unit]
-Description=Firmware Timeout Hack to Speedup Boot
-Before=qrtr-ns.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/sh -c &quot;echo 1 &gt; /sys/class/firmware/timeout&quot;
-
-[Install]
-WantedBy=multi-user.target
-</code></pre><p>I&rsquo;m sure there&rsquo;s a better way to do this, and it seems like <code>7f4e4afa140c</code> is
-the commit in the kernel that causes the &ldquo;regression&rdquo;.</p>
-<hr>
 <p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started off on the bionic image (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation just yet.</p>
 <hr>
 <h3 id="update">Update:</h3>
