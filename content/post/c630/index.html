@@ -104,7 +104,7 @@ make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&a
 <span class="c1"># To make sure things can find libqrtr.so.1, regenerate the /etc/ld.so.cache</span>
 sudo ldconfig
 <span class="nb">cd</span> ..
-apt install libudev-dev <span class="c1">#on Debian based systems</span>
+sudo apt install libudev-dev <span class="c1">#on Debian based systems</span>
 git clone https://github.com/andersson/rmtfs
 <span class="nb">cd</span> rmtfs
 make <span class="o">&amp;&amp;</span> sudo make install <span class="o">&amp;&amp;</span> sudo systemctl <span class="nb">enable</span> --now rmtfs.service
