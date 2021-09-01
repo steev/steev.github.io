@@ -1,18 +1,83 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml"><url>
-    <loc>https://steev.net/content/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/tags/arm64/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/tags/c630/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/content/post/convert-c630-bionic-kali/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/tags/kali/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/tags/lenovo/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/tags/linux/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/content/post/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/tags/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/tags/text/</loc><lastmod>2020-05-30T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/tags/blog/</loc><lastmod>2020-05-16T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/content/post/c630/</loc><lastmod>2020-05-16T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/content/post/first-post/</loc><lastmod>2020-05-15T00:00:00+00:00</lastmod></url><url>
-    <loc>https://steev.net/categories/</loc></url><url>
-    <loc>https://steev.net/tags/index/</loc></url></urlset>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://steev.net/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/arm64/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/blog/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/c630/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/lenovo/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/post/01-sep-2021/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/linux/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/post/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/text/</loc>
+    <lastmod>2021-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/post/convert-c630-bionic-kali/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/kali/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/post/c630/</loc>
+    <lastmod>2020-05-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/post/first-post/</loc>
+    <lastmod>2020-05-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/tags/index/</loc>
+  </url>
+  
+</urlset>

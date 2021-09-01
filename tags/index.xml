@@ -1,95 +1,83 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on STEEVdotnet</title>
-    <link>/tags/</link>
+    <link>https://steev.net/tags/</link>
     <description>Recent content in Tags on STEEVdotnet</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2020 Steev Klimaszewsk.</copyright>
-    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate>
-    
-        <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>© 2021 Steev Klimaszewsk.</copyright>
+    <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://steev.net/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>arm64</title>
-      <link>/tags/arm64/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      <link>https://steev.net/tags/arm64/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/arm64/</guid>
+      <guid>https://steev.net/tags/arm64/</guid>
       <description></description>
-      
-    </item>
-    
-    <item>
-      <title>c630</title>
-      <link>/tags/c630/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/c630/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>kali</title>
-      <link>/tags/kali/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/kali/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>lenovo</title>
-      <link>/tags/lenovo/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/lenovo/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>/tags/linux/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/linux/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>text</title>
-      <link>/tags/text/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/text/</guid>
-      <description></description>
-      
     </item>
     
     <item>
       <title>blog</title>
-      <link>/tags/blog/</link>
-      <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
+      <link>https://steev.net/tags/blog/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/blog/</guid>
+      <guid>https://steev.net/tags/blog/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>c630</title>
+      <link>https://steev.net/tags/c630/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
       
+      <guid>https://steev.net/tags/c630/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lenovo</title>
+      <link>https://steev.net/tags/lenovo/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://steev.net/tags/lenovo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://steev.net/tags/linux/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://steev.net/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>text</title>
+      <link>https://steev.net/tags/text/</link>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://steev.net/tags/text/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kali</title>
+      <link>https://steev.net/tags/kali/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://steev.net/tags/kali/</guid>
+      <description></description>
     </item>
     
     <item>
       <title>index</title>
-      <link>/tags/index/</link>
+      <link>https://steev.net/tags/index/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/tags/index/</guid>
+      <guid>https://steev.net/tags/index/</guid>
       <description></description>
-      
     </item>
     
   </channel>

@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>404 Page not found &middot; </title>
-        <meta name="description" content="">
+        <title>Lenovo Yoga C630 Progress - 2021 Edition &middot; </title>
+        <meta name="description" content="Blog post about the C630">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
         <meta name="generator" content="Hugo 0.80.0" />
@@ -55,9 +55,51 @@
 
 
 <div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Lenovo Yoga C630 Progress - 2021 Edition</h1>
+    
+        <p class="post-description" itemprop="description">Blog post about the C630</p>
+    
+    <p class="post-date post-line">
+        <span>Published <time datetime="2021-09-01" itemprop="datePublished">Sep 01, 2021</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="#" itemprop="url" rel="author">Steev Klimaszewski</a>
+            </span>
+        </span>
+    </p>
+    
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
     
 
-    <p class="error">Oh, this page does not exist. You can head back to <a href="https://steev.net">homepage</a>.</p>
+    <p>So the 5.14 kernel is out, There are still 9(?) patches that are external to the kernel for C630 support, 3 related to the battery that need to be reworked, 5 related to the panel/bridge/backlight controls, and one to enable the IPA driver (LTE modem) in the dts file.</p>
+<p>There are a few minor issues still, audio occasionally requires a few (up to 3) reboots, but it works, if you have the alsa-ucm-conf package installed from the linaro repository.  Hopefully the configs will be submitted into upstream again soon.</p>
+<p>Occasionally, the touchpad disappears when you come back from suspend.  A reboot, or occasionally just suspending/unsuspending it will bring it back.</p>
+<p>Currently would suggest using the kernel tree at <a href="https://github.com/aarch64-laptops/linux">https://github.com/aarch64-laptops/linux</a> current branch is laptops-5.14 - my 5.14 tree will be coming along, but I&rsquo;m trying to frankenstein in some bits for the Lenovo Flex 5G on top of what is in the aarch64-laptops repo (merging in Bjorn&rsquo;s most recent work) so I don&rsquo;t want people using my repo just yet.</p>
+<p>I&rsquo;m sure there&rsquo;s more stuff, but 5.14 feels pretty solid.  There is one minor issue with the fbcon driver at boot, but someone is looking into it already, just haven&rsquo;t had a chance to poke them and see how that work is going.</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+        <p class="post-tags">
+            <span>Tagged:</span>
+                <a href="/tags/blog/">blog</a>, 
+                <a href="/tags/text/">text</a>, 
+                <a href="/tags/linux/">linux</a>, 
+                <a href="/tags/c630/">c630</a>, 
+                <a href="/tags/lenovo/">lenovo</a>, 
+                <a href="/tags/arm64/">arm64</a>
+        </p>
+    <div class="share">
+    </div>
+</footer>
+
+        
+    </article>
 </div>
 
             </div>
