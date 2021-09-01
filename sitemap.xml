@@ -73,11 +73,15 @@
   </url>
   
   <url>
-    <loc>https://steev.net/categories/</loc>
+    <loc>https://steev.net/blog/</loc>
   </url>
   
   <url>
     <loc>https://steev.net/tags/index/</loc>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/series/</loc>
   </url>
   
 </urlset>
