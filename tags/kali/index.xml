@@ -10,10 +10,10 @@
     <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://steev.net/tags/kali/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Converting a Bionic install to Kali on the Lenovo C630</title>
-      <link>https://steev.net/post/convert-c630-bionic-kali/</link>
+      <link>https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://steev.net/post/convert-c630-bionic-kali/</guid>
+      <guid>https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/</guid>
       <description>Since I&amp;rsquo;m a Kali developer for my day job, I like to &amp;ldquo;dogfood&amp;rdquo; and run Kali on most of my machines. Recently, since the majority of the support is in a 5.7-ish kernel, I went ahead and installed Bionic to a partition on the internal storage, and then went about &amp;ldquo;upgrading&amp;rdquo; it to run Kali instead of the Bionic install. This will be a bit of a walkthrough to show how I did it, and can be used as a general guide for converting an Ubuntu install to Kali, without reinstalling.</description>
     </item>
     

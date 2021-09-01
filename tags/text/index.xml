@@ -10,29 +10,29 @@
     <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://steev.net/tags/text/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lenovo Yoga C630 Progress - 2021 Edition</title>
-      <link>https://steev.net/post/01-sep-2021/</link>
+      <link>https://steev.net/posts/2021/09/lenovo-yoga-c630-progress-2021-edition/</link>
       <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://steev.net/post/01-sep-2021/</guid>
+      <guid>https://steev.net/posts/2021/09/lenovo-yoga-c630-progress-2021-edition/</guid>
       <description>So the 5.14 kernel is out, There are still 9(?) patches that are external to the kernel for C630 support, 3 related to the battery that need to be reworked, 5 related to the panel/bridge/backlight controls, and one to enable the IPA driver (LTE modem) in the dts file.
 There are a few minor issues still, audio occasionally requires a few (up to 3) reboots, but it works, if you have the alsa-ucm-conf package installed from the linaro repository.</description>
     </item>
     
     <item>
       <title>Converting a Bionic install to Kali on the Lenovo C630</title>
-      <link>https://steev.net/post/convert-c630-bionic-kali/</link>
+      <link>https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/</link>
       <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://steev.net/post/convert-c630-bionic-kali/</guid>
+      <guid>https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/</guid>
       <description>Since I&amp;rsquo;m a Kali developer for my day job, I like to &amp;ldquo;dogfood&amp;rdquo; and run Kali on most of my machines. Recently, since the majority of the support is in a 5.7-ish kernel, I went ahead and installed Bionic to a partition on the internal storage, and then went about &amp;ldquo;upgrading&amp;rdquo; it to run Kali instead of the Bionic install. This will be a bit of a walkthrough to show how I did it, and can be used as a general guide for converting an Ubuntu install to Kali, without reinstalling.</description>
     </item>
     
     <item>
       <title>Lenovo Yoga C630 Progress</title>
-      <link>https://steev.net/post/c630/</link>
+      <link>https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/</link>
       <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://steev.net/post/c630/</guid>
+      <guid>https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/</guid>
       <description>DO NOT WIPE THE WINDOWS PARTITION UNTIL YOU&amp;rsquo;VE PULLED THE FIRMWARE FROM IT. Progress so far with the Lenovo Yoga C630 Thanks to Bamse we now have both USB-C ports working on the c630.
 His branch is https://github.com/andersson/kernel/commits/wip/c630-5.7
 What I&amp;rsquo;ve done so far to get it working:
@@ -41,10 +41,10 @@ This version of steps is what I use, you will likely want to skip Linus&#39; tre
     
     <item>
       <title>First Blog Post</title>
-      <link>https://steev.net/post/first-post/</link>
+      <link>https://steev.net/posts/2020/05/first-blog-post/</link>
       <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://steev.net/post/first-post/</guid>
+      <guid>https://steev.net/posts/2020/05/first-blog-post/</guid>
       <description>Welp, let&amp;rsquo;s try this again. See if hosting a blog via github and letting me push automatically updating the blog is better than having to login to a website and randomly enter text and shit.</description>
     </item>
     

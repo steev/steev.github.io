@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Steev Klimaszewski">
+<meta name="description" content="Blog post about the C630" />
+<meta name="keywords" content=", blog, text, linux, c630, lenovo, arm64" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/" />
+
+
+    <title>
+        
+            Lenovo Yoga C630 Progress :: STEEVdotnet 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.29c2c8c3fc9cf748254138351f142ac2833b208a68e83aec126edc98b59efef2.css">
+
+
+
+
+
+
+<meta itemprop="name" content="Lenovo Yoga C630 Progress">
+<meta itemprop="description" content="Blog post about the C630">
+<meta itemprop="datePublished" content="2020-05-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1060">
+
+
+
+<meta itemprop="keywords" content="blog,text,linux,c630,lenovo,arm64," />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Lenovo Yoga C630 Progress"/>
+<meta name="twitter:description" content="Blog post about the C630"/>
+
+
+
+
+    <meta property="og:title" content="Lenovo Yoga C630 Progress" />
+<meta property="og:description" content="Blog post about the C630" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/" />
+<meta property="article:published_time" content="2020-05-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-16T00:00:00+00:00" /><meta property="og:site_name" content="STEEVdotnet" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2020-05-16 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">&gt;</span>
+            <span class="logo__text">hello</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        5 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/">Lenovo Yoga C630 Progress</a>
+      </h1>
+
+      
+        <div class="post-excerpt">Blog post about the C630</div>
+      
+
+      
+
+      
+
+      <div class="post-content">
+        <h4 id="do-not-wipe-the-windows-partition-until-youve-pulled-the-firmware-from-it">DO NOT WIPE THE WINDOWS PARTITION UNTIL YOU&rsquo;VE PULLED THE FIRMWARE FROM IT.</h4>
+<h1 id="progress-so-far-with-the-lenovo-yoga-c630">Progress so far with the Lenovo Yoga C630</h1>
+<p>Thanks to <a href="https://github.com/andersson">Bamse</a> we now have both USB-C ports working on the c630.</p>
+<p>His branch is <a href="https://github.com/andersson/kernel/commits/wip/c630-5.7">https://github.com/andersson/kernel/commits/wip/c630-5.7</a></p>
+<p>What I&rsquo;ve done so far to get it working:</p>
+<p><strong>This version of steps is what I use, you will likely want to skip Linus' tree,
+and just use bamse as the base, unless you want to deal with merge conflicts.</strong></p>
+<h3 id="option-1">Option 1:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git
+pushd linux
+touch .scmversion
+git remote add bamse https://github.com/andersson/kernel
+</code></pre></div><hr>
+<h3 id="option2">Option2:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/andersson/kernel -b wip/c630-5.7 linux
+pushd linux
+touch .scmversion
+</code></pre></div><h3 id="continue">Continue:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git remote add robclark https://github.com/freedreno/kernel-msm
+git fetch --all --no-tags <span style="color:#75715e"># I don&#39;t care about tags, and rob&#39;s tree throws some errors with the for-3.6 and for-3.7 tags</span>
+git merge bamse/wip/c630-5.7 <span style="color:#75715e"># Only if you&#39;re using Option 1</span>
+git cherry-pick f77b935
+git cherry-pick a59a400
+git cherry-pick eceafb9
+git cherry-pick 7e95fcb
+git cherry-pick e5fdba1
+git cherry-pick 89a4c04
+git cherry-pick <span style="color:#ae81ff">3395035</span>
+git cherry-pick fa13722
+git cherry-pick 86888de
+<span style="color:#75715e"># On kali systems, I also apply the kali wifi injection patch</span>
+wget https://gitlab.com/kalilinux/packages/linux/-/raw/kali/master/debian/patches/features/all/kali-wifi-injection.patch
+patch -p1 &lt; kali-wifi-injection.patch
+make defconfig
+make menuconfig
+</code></pre></div><p>(all kinds of personal changes that I care about - you can find my config at <a href="https://dev.gentoo.org/~steev/files/lenovo-yoga-c630-5.7.0-rc5.config">https://dev.gentoo.org/~steev/files/lenovo-yoga-c630-5.7.0-rc5.config</a>)</p>
+<p>For my Kali systems - (and because I&rsquo;m cross compiling):</p>
+<p><code>make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc) deb-pkg</code></p>
+<p>For my Gentoo systems -</p>
+<p><code>make -j$(nproc) &amp;&amp; make modules_install &amp;&amp; make dtbs_install &amp;&amp; make install</code></p>
+<h5 id="in-the-original-52-kernels-the-dtb-file-was-expected-to-be-laptopdtb-with-57-the-new-dtb-file-for-the-c630-is-sdm850-lenovo-yoga-c630dtb-so-make-sure-that-if-youre-using-the-laptopdtb-symlink-it-points-to-the-correct-one">In the original 5.2 kernels, the dtb file was expected to be laptop.dtb, with 5.7, the new dtb file for the c630 is <em>sdm850-lenovo-yoga-c630.dtb</em> so make sure that if you&rsquo;re using the laptop.dtb symlink, it points to the correct one!</h5>
+<hr>
+<h3 id="bootloaderkernel-command-line">Bootloader/Kernel Command Line:</h3>
+<p>We need some arguments passed to boot, it doesn&rsquo;t matter if you hard code them
+in, or if you pass them via the bootloader.</p>
+<p><code>pd_ignore_unused</code> - Keep all power domains already enabled by bootloader on, even if no driver has claimed them.</p>
+<p><code>clk_ignore_unused</code> - Keep boot clocks on, even if no driver has claimed them.</p>
+<p><code>efi=novamap</code> - SetVirtualAddressMap() is not called after ExitBootServices()</p>
+<p>An example grub setup could look something like this:</p>
+<pre><code class="language-config" data-lang="config">GRUB_DEFAULT=0
+#GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT=2
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;efi=novamap pd_ignore_unused clk_ignore_unused&quot;
+GRUB_CMDLINE_LINUX=&quot;&quot;
+</code></pre><p>Note: if you are using the patches from Rob Clark above, you do not need
+<code>pd_ignore_unused</code> or <code>clk_ignore_unused</code> - only <code>efi=novamap</code> is required.</p>
+<p>So you could do something like this instead</p>
+<pre><code class="language-config" data-lang="config">GRUB_DEFAULT=0
+#GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT=2
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;efi=novamap&quot;
+GRUB_CMDLINE_LINUX=&quot;&quot;
+</code></pre><hr>
+<h3 id="firmware">Firmware:</h3>
+<p>In terms of firmware, things get a wee bit funky.  I&rsquo;m a bit lazy, so I&rsquo;ll use a script that <a href="https://github.com/celliwig">Celliwig</a> wrote (<a href="https://github.com/celliwig/lenovo-yoga-c630">https://github.com/celliwig/lenovo-yoga-c630</a>)
+This is all done on a c630 system, since we have to pull some signed firmware from the Windows partition(s?) - This script does require python2 as of 18 May 2020, so keep that in mind if you&rsquo;re using something like Ubuntu 20.04 where python3 is the default.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/celliwig/lenovo-yoga-c630
+pushd lenovo-yoga-c630/yoga_fw_extract
+./yoga_fw_extract.sh
+popd
+</code></pre></div><p>We&rsquo;re also going to need a copy of the linux-firmware git repo (though on Gentoo, the linux-firmware package is new enough)</p>
+<p><code>git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/firmware/linux-firmware.git</code></p>
+<p>Now lets move some files around&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pushd /lib/firmware/qcom
+sudo mkdir -p LENOVO/81JL
+<span style="color:#75715e"># Because I couldn&#39;t get things to work properly with symlinks...</span>
+sudo cp c630/* LENOVO/81JL/
+sudo cp ~/linux-firmware/qcom/sdm845/*.jsn LENOVO/81JL/
+<span style="color:#75715e"># We need the zap firmware for the GPU shader, which celliwig&#39;s script doesn&#39;t seem to pull.</span>
+sudo mount <span style="color:#66d9ef">$(</span>blkid -L Windows<span style="color:#66d9ef">)</span> /mnt
+find /mnt/Windows -iname qcdxkmsuc850.mbn
+sudo cp $one_of_the_above_results LENOVO/81JL/
+<span style="color:#75715e"># Bluetooth firmware, if you want it.</span>
+sudo cp ~/linux-firmware/qca/* /lib/firmware/qca/
+popd
+</code></pre></div><hr>
+<h3 id="services">Services</h3>
+<p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)
+As of 5.7, qrtr-ns is implemented in the kernel, however, because the other services depen on libqrtr.so from it, we still need to install it.  qrtr-ns also detects whether you&rsquo;re on &gt; 5.7, and if so, it does nothing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir services
+cd services
+git clone https://github.com/andersson/qrtr
+cd qrtr
+make <span style="color:#f92672">&amp;&amp;</span> sudo make install <span style="color:#f92672">&amp;&amp;</span> sudo systemctl enable --now qrtr-ns.service
+<span style="color:#75715e"># To make sure things can find libqrtr.so.1, regenerate the /etc/ld.so.cache</span>
+sudo ldconfig
+cd ..
+sudo apt install libudev-dev <span style="color:#75715e">#on Debian based systems</span>
+git clone https://github.com/andersson/rmtfs
+cd rmtfs
+make <span style="color:#f92672">&amp;&amp;</span> sudo make install <span style="color:#f92672">&amp;&amp;</span> sudo systemctl enable --now rmtfs.service
+cd ..
+git clone https://github.com/andersson/pd-mapper
+cd pd-mapper
+make <span style="color:#f92672">&amp;&amp;</span> sudo make install <span style="color:#f92672">&amp;&amp;</span> sudo systemctl enable --now pd-mapper.service
+cd ..
+git clone https://github.com/andersson/tqftpserv
+make <span style="color:#f92672">&amp;&amp;</span> sudo make install <span style="color:#f92672">&amp;&amp;</span> sudo systemctl enable --now tqftpserv.service
+cd ~
+</code></pre></div><hr>
+<p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started off on the bionic image (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation just yet.</p>
+<hr>
+<h3 id="update">Update:</h3>
+<p>To get audio working, you&rsquo;re going to need the ucm files as well,
+although there&rsquo;s a bit of question about the proper place they go.  People have
+had different results, I had to move mine into a specific directory that isn&rsquo;t
+in the repo - if that doesn&rsquo;t work, then you can try the same folder as mine,
+but typically you can check the dmesg output to see where it&rsquo;s trying to load
+the files from - or like me, I just copy to both places&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/srinivas-kandagatla/alsa-ucm-conf -b wip/DB845c
+cd alsa-ucm-conf/ucm2
+<span style="color:#75715e"># First copy the codecs we need</span>
+sudo cp -a codecs/w* /usr/share/alsa/ucm2/codecs/
+<span style="color:#75715e"># Now the actual profiles</span>
+sudo cp -a Lenovo-YOGA-C63 /usr/share/alsa/ucm2/
+cd /usr/share/alsa/ucm2
+sudo cp -a Lenovo-YOGA-C63 Lenovo-YOGA-C630-13Q50
+cd Lenovo-YOGA-C630-13Q50
+sudo mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_13Q50.conf
+sudo ln -s LENOVO-81JL-LenovoYOGAC630_13Q50.conf /usr/share/alsa/ucm2/Lenovo-YOGA-C630-13Q50/Lenovo-YOGA-C630-13Q50.conf
+</code></pre></div><hr>
+<h3 id="notes">Notes</h3>
+<p>X doesn&rsquo;t run properly currently, you will get lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve personally tested Sway and Gnome.</p>
+<h5 id="update-rob-clark-was-able-to-track-the-issue-down-in-mesa">Update: Rob Clark was able to track the issue down in mesa.</h5>
+<p>Update for mesa 19.3.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5192">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5192</a>
+Update for mesa 20.0.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5190">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5190</a>
+Update for Mesa 20.1.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5188">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5188</a></p>
+<p>Another thing to note, the reason why I&rsquo;m cherry picking from robclark instead
+of just merging in his wip/c630-5.7 branch, is because of commit <code>f82139e</code> - you
+absolutely can use it, however, you also need to use his dtbloader.  I didn&rsquo;t
+want to but if you want to play around, he&rsquo;s got prebuilt binaries at
+<a href="https://people.freedesktop.org/~robclark/DtbLoader.efi">https://people.freedesktop.org/~robclark/DtbLoader.efi</a> and
+<a href="https://people.freedesktop.org/~robclark/Shell.efi">https://people.freedesktop.org/~robclark/Shell.efi</a> - and a readme for it can
+be found at <a href="https://github.com/robclark/edk2/blob/dtbloader-chid/Readme.md">https://github.com/robclark/edk2/blob/dtbloader-chid/Readme.md</a></p>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://steev.net/tags/blog/">blog</a></span>
+        <span class="tag"><a href="https://steev.net/tags/text/">text</a></span>
+        <span class="tag"><a href="https://steev.net/tags/linux/">linux</a></span>
+        <span class="tag"><a href="https://steev.net/tags/c630/">c630</a></span>
+        <span class="tag"><a href="https://steev.net/tags/lenovo/">lenovo</a></span>
+        <span class="tag"><a href="https://steev.net/tags/arm64/">arm64</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        1060 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2020-05-15 19:00
+        
+
+         
+          
+        
+      </p>
+    </div>
+
+    
+    <div class="pagination">
+        <div class="pagination__title">
+            <span class="pagination__title-h"></span>
+            <hr />
+        </div>
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">Converting a Bionic install to Kali on the Lenovo C630</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://steev.net/posts/2020/05/first-blog-post/">
+                    <span class="button__text">First Blog Post</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.ace63d93098bf623f7c286a9084a4c22bfc482944c734f87fe0b685c7c6c7fa0ad2edb028c3b4b60d3343720c8ab490b320ad7f8edf4f6e9a6b898fc529057a9.js" integrity="sha512-rOY9kwmL9iP3woapCEpMIr/EgpRMc0&#43;H/gtoXHxsf6CtLtsCjDtLYNM0NyDIq0kLMgrX&#43;O309ummuJj8UpBXqQ=="></script>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Steev Klimaszewski">
+<meta name="description" content="Converting a Bionic install to Kali on the Lenovo C630" />
+<meta name="keywords" content=", text, linux, c630, lenovo, arm64, kali" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/" />
+
+
+    <title>
+        
+            Converting a Bionic install to Kali on the Lenovo C630 :: STEEVdotnet 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.29c2c8c3fc9cf748254138351f142ac2833b208a68e83aec126edc98b59efef2.css">
+
+
+
+
+
+
+<meta itemprop="name" content="Converting a Bionic install to Kali on the Lenovo C630">
+<meta itemprop="description" content="Converting a Bionic install to Kali on the Lenovo C630">
+<meta itemprop="datePublished" content="2020-05-30T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-05-30T00:00:00+00:00" />
+<meta itemprop="wordCount" content="994">
+
+
+
+<meta itemprop="keywords" content="text,linux,c630,lenovo,arm64,kali," />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Converting a Bionic install to Kali on the Lenovo C630"/>
+<meta name="twitter:description" content="Converting a Bionic install to Kali on the Lenovo C630"/>
+
+
+
+
+    <meta property="og:title" content="Converting a Bionic install to Kali on the Lenovo C630" />
+<meta property="og:description" content="Converting a Bionic install to Kali on the Lenovo C630" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/" />
+<meta property="article:published_time" content="2020-05-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-30T00:00:00+00:00" /><meta property="og:site_name" content="STEEVdotnet" />
+
+
+
+
+
+
+    <meta property="article:published_time" content="2020-05-30 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">&gt;</span>
+            <span class="logo__text">hello</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        5 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/">Converting a Bionic install to Kali on the Lenovo C630</a>
+      </h1>
+
+      
+        <div class="post-excerpt">Converting a Bionic install to Kali on the Lenovo C630</div>
+      
+
+      
+
+      
+
+      <div class="post-content">
+        <p>Since I&rsquo;m a Kali developer for my day job, I like to &ldquo;dogfood&rdquo; and run Kali on most of my machines.  Recently, since the majority of the support is in a 5.7-ish kernel, I went ahead and installed Bionic to a partition on the internal storage, and then went about &ldquo;upgrading&rdquo; it to run Kali instead of the Bionic install.  This will be a bit of a walkthrough to show how I did it, and can be used as a general guide for converting an Ubuntu install to Kali, without reinstalling.</p>
+<p>First thing I did was follow the steps listed at <a href="https://github.com/aarch64-laptops/build">https://github.com/aarch64-laptops/build</a> under <code>Use an enabled installer</code> - I personally did minimal install because I knew I&rsquo;d be converting to a Kali installation afterwards.</p>
+<p>After first booting into Ubuntu, I went ahead and disabled natural scrolling and turned on tap to click in the settings, and connecting to my wifi network using an external device, as the 5.2 kernel does not support the built-in wifi card.  An ethernet connection would work as well if you have one on a usb-c hub, but my hub recently died so&hellip;</p>
+<p>Then I purged both snapd and unattended-upgrades - I did NOT autoremove anything, as I don&rsquo;t want to do that til near the end of converting to Kali.  We remove snapd because Kali doesn&rsquo;t use snapd, and unattended-upgrades because&hellip; I don&rsquo;t like apt running things in the background behind my back.</p>
+<p><code>sudo apt purge snapd unattended-upgrades</code></p>
+<p>Now we download the Kali archive keyring, so that we can install packages from the Kali distro.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://kali.download/kali/pool/main/k/kali-archive-keyring/kali-archive-keyring_2020.2_all.deb
+sudo dpkg -i ./kali-archive-keyring_2020.2_all.deb
+</code></pre></div><p>Now we edit the <code>/etc/sources.list</code> so that we point to the Kali repos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">deb https://http.kali.org/kali kali-rolling main contrib non-free
+</code></pre></div><p>Because of the grub packages having some changes, we&rsquo;ll go ahead and <code>apt-mark hold</code> the grub packages.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-mark hold grub2-common
+sudo apt-mark hold grub-efi-arm64-bin
+sudo apt-mark hold grub-efi-arm64
+sudo apt-mark hold grub-common
+</code></pre></div><p>Also, because we&rsquo;re going to be regenerating the initramfs a few times as part of this process, let&rsquo;s put the dtb file where flash-kernel can find it&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mkdir -p /etc/flash-kernel/dtbs/qcom
+sudo cp /boot/dtbs/5.2.0-99-generic/laptop-lenovo-yoga-c630.dtb /etc/flash-kernel/dtbs/qcom/
+</code></pre></div><hr>
+<h5 id="now-we-can-start-breaking-things">Now we can start breaking things&hellip;</h5>
+<p>Update our repository information, and then do the dist-upgrade, passing a few options because, well, I don&rsquo;t really want to babysit it, and I know some contents have changed packages, and won&rsquo;t update cleanly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt update
+sudo apt dist-upgrade --download-only <span style="color:#75715e"># This allows us to download all the updates, before running the update command.</span>
+sudo env DEBIAN_FRONTEND<span style="color:#f92672">=</span>noninteractive dist-upgrade -o dpkg::options::<span style="color:#f92672">=</span>--force-confnew -o dpkg::options::<span style="color:#f92672">=</span>--force-overwrite
+</code></pre></div><p>Go grab a cup of coffee, or your preferred beverage of choice.</p>
+<p>Once the update completes, we need to &ldquo;downgrade&rdquo; a few packages, because Ubuntu changes the epoch in their package version so it only ever updates to theirs despite new versions coming in from Debian, and Kali tends to follow Debian&rsquo;s versioning a bit closer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install --allow-downgrades libnautilus-extension1a<span style="color:#f92672">=</span>3.36.2-2 nautilus-data<span style="color:#f92672">=</span>3.36.2-2 python3-software-properties-0.96.20.2-2.1 libgudev-1.0-0<span style="color:#f92672">=</span>233.1 gcc-8-base
+</code></pre></div><p>Now lets install the Kali metapackages&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install kali-desktop-gnome <span style="color:#75715e"># You can also use kali-desktop-xfce, but for now, I&#39;d suggest sticking with gnome due to the mesa issue that hasn&#39;t been patched just yet in Debian.</span>
+</code></pre></div><p>We&rsquo;re gonna have a bit of repeats here, because once we&rsquo;ve done these updates, we&rsquo;re going to remove a bunch of packages, and part of that will likely uninstall the Kali metapackages as well.
+But now we&rsquo;re going to remove Ubuntu specific packages, or packages that we&rsquo;re not going to be using.  I got this list with a fairly quick <code>dpkg -l | grep ubuntu</code> so you may want to check that output, rather than blindly copying in my command below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt purge adium-theme-ubuntu alsa-base apport apport-gtk aptdaemon aptdaemon-data apturl-common dmz-cursor-theme fonts-khmeros-core fonts-lao gcc-7-base gnome-accessibility-themese gnome-shell-extension-ubuntu-dock gnome-themes-extra gnome-themes-extra-data gsettings-ubuntu-schemas kerneloops libao-common libappindicator3-1 libappindicator37 libprocps6 libpulse-mainloop-glib0 libpulse0 libpulsedsp libsane1 libssl1.0.0 libwhoopsie0 libxcb-util1 linux-firmware linux-sound-base ltrace multiarch-support network-manager-config-connectivity-ubuntu nplan perl-modules-5.26 pppoeconf printer-driver-pnm2ppa pulseaudio pulseaudio-module-bluetooth pulseaudio-utils python3-apport python3-aptdaemon python3-aptdaemon.gtk3widgets python3-xkit sound-theme-freedesktop ubuntu-advantage-tools ubuntu-artwork ubuntu-docs ubuntu-drivers-common ubuntu-keyring ubuntu-minimal ubuntu-mono ubuntu-release-upgrader-core ubunt-release-upgrader-gtk ubuntu-report ubuntu-settings ubuntu-software ubuntu-sounds ubuntu-standard ubuntu-system-service ubuntu-wallpapers ubuntu-wallpapers-bionic whoopsie xserver-xorg-input-wacom xul-ext-ubufox
+</code></pre></div><p>Now, this likely also removed some of our wanted Kali packages, so to be sure we get them back, we&rsquo;re going to reinstall the gnome desktop, and then we will install the <code>kali-linux-default</code> metapackage which gives us the packages that a default Kali installation would have.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install kali-desktop-gnome
+sudo apt install kali-linux-default
+</code></pre></div><p>At this point, before rebooting, you would want to follow the steps from my previous post for upgrading the kernel.  I happen to have the packages still, for the kernel, and mesa, so I don&rsquo;t need to rebuild them, but I do need to make a couple small modifications when upgrading to 5.7.0-rc7, which is the current kernel version I&rsquo;m patching.</p>
+<p>Remember how earlier we put the dtb file into place so flash-kernel doesn&rsquo;t complain?  Well now we need to remove it, and we also need to update the flash-kernel database because the 5.7 kernel changes the name of the dtb file we use.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo rm -rf /etc/flash-kernel/dtbs/qcom
+sudo $EDITOR /usr/share/flash-kernel/db/aarch64-laptops.db
+</code></pre></div><p>In the aarch64-laptops.db file, we want to change the last line, from the old dtb filename, to the new one.  The line should now be
+<code>DTB-Id: qcom/sdm850-lenovo-yoga-c630.dtb</code>.</p>
+<p>Now that we&rsquo;ve made this change, we can go ahead an install our 5.7 kernel debs</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo dpkg -i kernel*.deb
+</code></pre></div><p>If you&rsquo;ve also rebuilt mesa with the freedreno fix, you probably want to install those now as well. Locally, I&rsquo;ve just gone ahead and cloned the mesa repo from debian, added the patch for freedreno into the debian build sources for 20.0 (debian-unstable branch) and then built the packages, and then we go ahead and install them.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install ./libegl-mesa0_20.0.7-1_arm64.deb ./libgbm1_20.0.7-1_arm64.deb ./libgl1-mesa-dri_20.0.7-1_arm64.deb ./libgl1-mesa-glx_20.0.7-1_arm64.deb ./libglapi-mesa_20.0.7-1_arm64.deb ./libglx-mesa0_20.0.7-1_arm64.deb ./mesa-va-drivers_20.0.7-1_arm64.deb ./mesa-vdpau-drivers_20.0.7-1_arm64.deb ./mesa-vulkan-drivers_20.0.7-1_arm64.deb
+</code></pre></div><p>At this point, we should be good to reboot into our &ldquo;new&rdquo; Kali installation.</p>
+<hr>
+<p>As of June 16, 2020, we have Mesa 20.1.1 in Kali, which includes the freedreno fix, so there&rsquo;s no need to build the mesa packages anymore.</p>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://steev.net/tags/text/">text</a></span>
+        <span class="tag"><a href="https://steev.net/tags/linux/">linux</a></span>
+        <span class="tag"><a href="https://steev.net/tags/c630/">c630</a></span>
+        <span class="tag"><a href="https://steev.net/tags/lenovo/">lenovo</a></span>
+        <span class="tag"><a href="https://steev.net/tags/arm64/">arm64</a></span>
+        <span class="tag"><a href="https://steev.net/tags/kali/">kali</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        994 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2020-05-29 19:00
+        
+
+         
+          
+        
+      </p>
+    </div>
+
+    
+    <div class="pagination">
+        <div class="pagination__title">
+            <span class="pagination__title-h"></span>
+            <hr />
+        </div>
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://steev.net/posts/2021/09/lenovo-yoga-c630-progress-2021-edition/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">Lenovo Yoga C630 Progress - 2021 Edition</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/">
+                    <span class="button__text">Lenovo Yoga C630 Progress</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.ace63d93098bf623f7c286a9084a4c22bfc482944c734f87fe0b685c7c6c7fa0ad2edb028c3b4b60d3343720c8ab490b320ad7f8edf4f6e9a6b898fc529057a9.js" integrity="sha512-rOY9kwmL9iP3woapCEpMIr/EgpRMc0&#43;H/gtoXHxsf6CtLtsCjDtLYNM0NyDIq0kLMgrX&#43;O309ummuJj8UpBXqQ=="></script>
+
+
+
+    </body>
+</html>

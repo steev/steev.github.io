@@ -3,6 +3,14 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://steev.net/work/</loc>
+  </url>
+  
+  <url>
+    <loc>https://steev.net/about/</loc>
+  </url>
+  
+  <url>
     <loc>https://steev.net/</loc>
     <lastmod>2021-09-01T00:00:00+00:00</lastmod>
   </url>
@@ -28,7 +36,7 @@
   </url>
   
   <url>
-    <loc>https://steev.net/post/01-sep-2021/</loc>
+    <loc>https://steev.net/posts/2021/09/lenovo-yoga-c630-progress-2021-edition/</loc>
     <lastmod>2021-09-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -38,7 +46,7 @@
   </url>
   
   <url>
-    <loc>https://steev.net/post/</loc>
+    <loc>https://steev.net/posts/</loc>
     <lastmod>2021-09-01T00:00:00+00:00</lastmod>
   </url>
   
@@ -53,7 +61,7 @@
   </url>
   
   <url>
-    <loc>https://steev.net/post/convert-c630-bionic-kali/</loc>
+    <loc>https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/</loc>
     <lastmod>2020-05-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -63,12 +71,12 @@
   </url>
   
   <url>
-    <loc>https://steev.net/post/c630/</loc>
+    <loc>https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/</loc>
     <lastmod>2020-05-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://steev.net/post/first-post/</loc>
+    <loc>https://steev.net/posts/2020/05/first-blog-post/</loc>
     <lastmod>2020-05-15T00:00:00+00:00</lastmod>
   </url>
   

@@ -1,0 +1,257 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on STEEVdotnet</title>
+        <link>https://steev.net/posts/</link>
+        <description>Recent content in Posts on STEEVdotnet</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>© 2021 Steev Klimaszewski.</copyright>
+        <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate>
+        <atom:link href="https://steev.net/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Lenovo Yoga C630 Progress - 2021 Edition</title>
+            <link>https://steev.net/posts/2021/09/lenovo-yoga-c630-progress-2021-edition/</link>
+            <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://steev.net/posts/2021/09/lenovo-yoga-c630-progress-2021-edition/</guid>
+            <description>So the 5.14 kernel is out, There are still 9(?) patches that are external to the kernel for C630 support, 3 related to the battery that need to be reworked, 5 related to the panel/bridge/backlight controls, and one to enable the IPA driver (LTE modem) in the dts file.
+There are a few minor issues still, audio occasionally requires a few (up to 3) reboots, but it works, if you have the alsa-ucm-conf package installed from the linaro repository.</description>
+            <content type="html"><![CDATA[<p>So the 5.14 kernel is out, There are still 9(?) patches that are external to the kernel for C630 support, 3 related to the battery that need to be reworked, 5 related to the panel/bridge/backlight controls, and one to enable the IPA driver (LTE modem) in the dts file.</p>
+<p>There are a few minor issues still, audio occasionally requires a few (up to 3) reboots, but it works, if you have the alsa-ucm-conf package installed from the linaro repository.  Hopefully the configs will be submitted into upstream again soon.</p>
+<p>Occasionally, the touchpad disappears when you come back from suspend.  A reboot, or occasionally just suspending/unsuspending it will bring it back.</p>
+<p>Currently would suggest using the kernel tree at <a href="https://github.com/aarch64-laptops/linux">https://github.com/aarch64-laptops/linux</a> current branch is laptops-5.14 - my 5.14 tree will be coming along, but I&rsquo;m trying to frankenstein in some bits for the Lenovo Flex 5G on top of what is in the aarch64-laptops repo (merging in Bjorn&rsquo;s most recent work) so I don&rsquo;t want people using my repo just yet.</p>
+<p>I&rsquo;m sure there&rsquo;s more stuff, but 5.14 feels pretty solid.  There is one minor issue with the fbcon driver at boot, but someone is looking into it already, just haven&rsquo;t had a chance to poke them and see how that work is going.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Converting a Bionic install to Kali on the Lenovo C630</title>
+            <link>https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/</link>
+            <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+            
+            <guid>https://steev.net/posts/2020/05/converting-a-bionic-install-to-kali-on-the-lenovo-c630/</guid>
+            <description>Since I&amp;rsquo;m a Kali developer for my day job, I like to &amp;ldquo;dogfood&amp;rdquo; and run Kali on most of my machines. Recently, since the majority of the support is in a 5.7-ish kernel, I went ahead and installed Bionic to a partition on the internal storage, and then went about &amp;ldquo;upgrading&amp;rdquo; it to run Kali instead of the Bionic install. This will be a bit of a walkthrough to show how I did it, and can be used as a general guide for converting an Ubuntu install to Kali, without reinstalling.</description>
+            <content type="html"><![CDATA[<p>Since I&rsquo;m a Kali developer for my day job, I like to &ldquo;dogfood&rdquo; and run Kali on most of my machines.  Recently, since the majority of the support is in a 5.7-ish kernel, I went ahead and installed Bionic to a partition on the internal storage, and then went about &ldquo;upgrading&rdquo; it to run Kali instead of the Bionic install.  This will be a bit of a walkthrough to show how I did it, and can be used as a general guide for converting an Ubuntu install to Kali, without reinstalling.</p>
+<p>First thing I did was follow the steps listed at <a href="https://github.com/aarch64-laptops/build">https://github.com/aarch64-laptops/build</a> under <code>Use an enabled installer</code> - I personally did minimal install because I knew I&rsquo;d be converting to a Kali installation afterwards.</p>
+<p>After first booting into Ubuntu, I went ahead and disabled natural scrolling and turned on tap to click in the settings, and connecting to my wifi network using an external device, as the 5.2 kernel does not support the built-in wifi card.  An ethernet connection would work as well if you have one on a usb-c hub, but my hub recently died so&hellip;</p>
+<p>Then I purged both snapd and unattended-upgrades - I did NOT autoremove anything, as I don&rsquo;t want to do that til near the end of converting to Kali.  We remove snapd because Kali doesn&rsquo;t use snapd, and unattended-upgrades because&hellip; I don&rsquo;t like apt running things in the background behind my back.</p>
+<p><code>sudo apt purge snapd unattended-upgrades</code></p>
+<p>Now we download the Kali archive keyring, so that we can install packages from the Kali distro.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://kali.download/kali/pool/main/k/kali-archive-keyring/kali-archive-keyring_2020.2_all.deb
+sudo dpkg -i ./kali-archive-keyring_2020.2_all.deb
+</code></pre></div><p>Now we edit the <code>/etc/sources.list</code> so that we point to the Kali repos.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">deb https://http.kali.org/kali kali-rolling main contrib non-free
+</code></pre></div><p>Because of the grub packages having some changes, we&rsquo;ll go ahead and <code>apt-mark hold</code> the grub packages.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-mark hold grub2-common
+sudo apt-mark hold grub-efi-arm64-bin
+sudo apt-mark hold grub-efi-arm64
+sudo apt-mark hold grub-common
+</code></pre></div><p>Also, because we&rsquo;re going to be regenerating the initramfs a few times as part of this process, let&rsquo;s put the dtb file where flash-kernel can find it&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mkdir -p /etc/flash-kernel/dtbs/qcom
+sudo cp /boot/dtbs/5.2.0-99-generic/laptop-lenovo-yoga-c630.dtb /etc/flash-kernel/dtbs/qcom/
+</code></pre></div><hr>
+<h5 id="now-we-can-start-breaking-things">Now we can start breaking things&hellip;</h5>
+<p>Update our repository information, and then do the dist-upgrade, passing a few options because, well, I don&rsquo;t really want to babysit it, and I know some contents have changed packages, and won&rsquo;t update cleanly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt update
+sudo apt dist-upgrade --download-only <span style="color:#75715e"># This allows us to download all the updates, before running the update command.</span>
+sudo env DEBIAN_FRONTEND<span style="color:#f92672">=</span>noninteractive dist-upgrade -o dpkg::options::<span style="color:#f92672">=</span>--force-confnew -o dpkg::options::<span style="color:#f92672">=</span>--force-overwrite
+</code></pre></div><p>Go grab a cup of coffee, or your preferred beverage of choice.</p>
+<p>Once the update completes, we need to &ldquo;downgrade&rdquo; a few packages, because Ubuntu changes the epoch in their package version so it only ever updates to theirs despite new versions coming in from Debian, and Kali tends to follow Debian&rsquo;s versioning a bit closer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install --allow-downgrades libnautilus-extension1a<span style="color:#f92672">=</span>3.36.2-2 nautilus-data<span style="color:#f92672">=</span>3.36.2-2 python3-software-properties-0.96.20.2-2.1 libgudev-1.0-0<span style="color:#f92672">=</span>233.1 gcc-8-base
+</code></pre></div><p>Now lets install the Kali metapackages&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install kali-desktop-gnome <span style="color:#75715e"># You can also use kali-desktop-xfce, but for now, I&#39;d suggest sticking with gnome due to the mesa issue that hasn&#39;t been patched just yet in Debian.</span>
+</code></pre></div><p>We&rsquo;re gonna have a bit of repeats here, because once we&rsquo;ve done these updates, we&rsquo;re going to remove a bunch of packages, and part of that will likely uninstall the Kali metapackages as well.
+But now we&rsquo;re going to remove Ubuntu specific packages, or packages that we&rsquo;re not going to be using.  I got this list with a fairly quick <code>dpkg -l | grep ubuntu</code> so you may want to check that output, rather than blindly copying in my command below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt purge adium-theme-ubuntu alsa-base apport apport-gtk aptdaemon aptdaemon-data apturl-common dmz-cursor-theme fonts-khmeros-core fonts-lao gcc-7-base gnome-accessibility-themese gnome-shell-extension-ubuntu-dock gnome-themes-extra gnome-themes-extra-data gsettings-ubuntu-schemas kerneloops libao-common libappindicator3-1 libappindicator37 libprocps6 libpulse-mainloop-glib0 libpulse0 libpulsedsp libsane1 libssl1.0.0 libwhoopsie0 libxcb-util1 linux-firmware linux-sound-base ltrace multiarch-support network-manager-config-connectivity-ubuntu nplan perl-modules-5.26 pppoeconf printer-driver-pnm2ppa pulseaudio pulseaudio-module-bluetooth pulseaudio-utils python3-apport python3-aptdaemon python3-aptdaemon.gtk3widgets python3-xkit sound-theme-freedesktop ubuntu-advantage-tools ubuntu-artwork ubuntu-docs ubuntu-drivers-common ubuntu-keyring ubuntu-minimal ubuntu-mono ubuntu-release-upgrader-core ubunt-release-upgrader-gtk ubuntu-report ubuntu-settings ubuntu-software ubuntu-sounds ubuntu-standard ubuntu-system-service ubuntu-wallpapers ubuntu-wallpapers-bionic whoopsie xserver-xorg-input-wacom xul-ext-ubufox
+</code></pre></div><p>Now, this likely also removed some of our wanted Kali packages, so to be sure we get them back, we&rsquo;re going to reinstall the gnome desktop, and then we will install the <code>kali-linux-default</code> metapackage which gives us the packages that a default Kali installation would have.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install kali-desktop-gnome
+sudo apt install kali-linux-default
+</code></pre></div><p>At this point, before rebooting, you would want to follow the steps from my previous post for upgrading the kernel.  I happen to have the packages still, for the kernel, and mesa, so I don&rsquo;t need to rebuild them, but I do need to make a couple small modifications when upgrading to 5.7.0-rc7, which is the current kernel version I&rsquo;m patching.</p>
+<p>Remember how earlier we put the dtb file into place so flash-kernel doesn&rsquo;t complain?  Well now we need to remove it, and we also need to update the flash-kernel database because the 5.7 kernel changes the name of the dtb file we use.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo rm -rf /etc/flash-kernel/dtbs/qcom
+sudo $EDITOR /usr/share/flash-kernel/db/aarch64-laptops.db
+</code></pre></div><p>In the aarch64-laptops.db file, we want to change the last line, from the old dtb filename, to the new one.  The line should now be
+<code>DTB-Id: qcom/sdm850-lenovo-yoga-c630.dtb</code>.</p>
+<p>Now that we&rsquo;ve made this change, we can go ahead an install our 5.7 kernel debs</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo dpkg -i kernel*.deb
+</code></pre></div><p>If you&rsquo;ve also rebuilt mesa with the freedreno fix, you probably want to install those now as well. Locally, I&rsquo;ve just gone ahead and cloned the mesa repo from debian, added the patch for freedreno into the debian build sources for 20.0 (debian-unstable branch) and then built the packages, and then we go ahead and install them.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt install ./libegl-mesa0_20.0.7-1_arm64.deb ./libgbm1_20.0.7-1_arm64.deb ./libgl1-mesa-dri_20.0.7-1_arm64.deb ./libgl1-mesa-glx_20.0.7-1_arm64.deb ./libglapi-mesa_20.0.7-1_arm64.deb ./libglx-mesa0_20.0.7-1_arm64.deb ./mesa-va-drivers_20.0.7-1_arm64.deb ./mesa-vdpau-drivers_20.0.7-1_arm64.deb ./mesa-vulkan-drivers_20.0.7-1_arm64.deb
+</code></pre></div><p>At this point, we should be good to reboot into our &ldquo;new&rdquo; Kali installation.</p>
+<hr>
+<p>As of June 16, 2020, we have Mesa 20.1.1 in Kali, which includes the freedreno fix, so there&rsquo;s no need to build the mesa packages anymore.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Lenovo Yoga C630 Progress</title>
+            <link>https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/</link>
+            <pubDate>Sat, 16 May 2020 00:00:00 +0000</pubDate>
+            
+            <guid>https://steev.net/posts/2020/05/lenovo-yoga-c630-progress/</guid>
+            <description>DO NOT WIPE THE WINDOWS PARTITION UNTIL YOU&amp;rsquo;VE PULLED THE FIRMWARE FROM IT. Progress so far with the Lenovo Yoga C630 Thanks to Bamse we now have both USB-C ports working on the c630.
+His branch is https://github.com/andersson/kernel/commits/wip/c630-5.7
+What I&amp;rsquo;ve done so far to get it working:
+This version of steps is what I use, you will likely want to skip Linus&#39; tree, and just use bamse as the base, unless you want to deal with merge conflicts.</description>
+            <content type="html"><![CDATA[<h4 id="do-not-wipe-the-windows-partition-until-youve-pulled-the-firmware-from-it">DO NOT WIPE THE WINDOWS PARTITION UNTIL YOU&rsquo;VE PULLED THE FIRMWARE FROM IT.</h4>
+<h1 id="progress-so-far-with-the-lenovo-yoga-c630">Progress so far with the Lenovo Yoga C630</h1>
+<p>Thanks to <a href="https://github.com/andersson">Bamse</a> we now have both USB-C ports working on the c630.</p>
+<p>His branch is <a href="https://github.com/andersson/kernel/commits/wip/c630-5.7">https://github.com/andersson/kernel/commits/wip/c630-5.7</a></p>
+<p>What I&rsquo;ve done so far to get it working:</p>
+<p><strong>This version of steps is what I use, you will likely want to skip Linus' tree,
+and just use bamse as the base, unless you want to deal with merge conflicts.</strong></p>
+<h3 id="option-1">Option 1:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux.git
+pushd linux
+touch .scmversion
+git remote add bamse https://github.com/andersson/kernel
+</code></pre></div><hr>
+<h3 id="option2">Option2:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/andersson/kernel -b wip/c630-5.7 linux
+pushd linux
+touch .scmversion
+</code></pre></div><h3 id="continue">Continue:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git remote add robclark https://github.com/freedreno/kernel-msm
+git fetch --all --no-tags <span style="color:#75715e"># I don&#39;t care about tags, and rob&#39;s tree throws some errors with the for-3.6 and for-3.7 tags</span>
+git merge bamse/wip/c630-5.7 <span style="color:#75715e"># Only if you&#39;re using Option 1</span>
+git cherry-pick f77b935
+git cherry-pick a59a400
+git cherry-pick eceafb9
+git cherry-pick 7e95fcb
+git cherry-pick e5fdba1
+git cherry-pick 89a4c04
+git cherry-pick <span style="color:#ae81ff">3395035</span>
+git cherry-pick fa13722
+git cherry-pick 86888de
+<span style="color:#75715e"># On kali systems, I also apply the kali wifi injection patch</span>
+wget https://gitlab.com/kalilinux/packages/linux/-/raw/kali/master/debian/patches/features/all/kali-wifi-injection.patch
+patch -p1 &lt; kali-wifi-injection.patch
+make defconfig
+make menuconfig
+</code></pre></div><p>(all kinds of personal changes that I care about - you can find my config at <a href="https://dev.gentoo.org/~steev/files/lenovo-yoga-c630-5.7.0-rc5.config">https://dev.gentoo.org/~steev/files/lenovo-yoga-c630-5.7.0-rc5.config</a>)</p>
+<p>For my Kali systems - (and because I&rsquo;m cross compiling):</p>
+<p><code>make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j$(nproc) deb-pkg</code></p>
+<p>For my Gentoo systems -</p>
+<p><code>make -j$(nproc) &amp;&amp; make modules_install &amp;&amp; make dtbs_install &amp;&amp; make install</code></p>
+<h5 id="in-the-original-52-kernels-the-dtb-file-was-expected-to-be-laptopdtb-with-57-the-new-dtb-file-for-the-c630-is-sdm850-lenovo-yoga-c630dtb-so-make-sure-that-if-youre-using-the-laptopdtb-symlink-it-points-to-the-correct-one">In the original 5.2 kernels, the dtb file was expected to be laptop.dtb, with 5.7, the new dtb file for the c630 is <em>sdm850-lenovo-yoga-c630.dtb</em> so make sure that if you&rsquo;re using the laptop.dtb symlink, it points to the correct one!</h5>
+<hr>
+<h3 id="bootloaderkernel-command-line">Bootloader/Kernel Command Line:</h3>
+<p>We need some arguments passed to boot, it doesn&rsquo;t matter if you hard code them
+in, or if you pass them via the bootloader.</p>
+<p><code>pd_ignore_unused</code> - Keep all power domains already enabled by bootloader on, even if no driver has claimed them.</p>
+<p><code>clk_ignore_unused</code> - Keep boot clocks on, even if no driver has claimed them.</p>
+<p><code>efi=novamap</code> - SetVirtualAddressMap() is not called after ExitBootServices()</p>
+<p>An example grub setup could look something like this:</p>
+<pre><code class="language-config" data-lang="config">GRUB_DEFAULT=0
+#GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT=2
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;efi=novamap pd_ignore_unused clk_ignore_unused&quot;
+GRUB_CMDLINE_LINUX=&quot;&quot;
+</code></pre><p>Note: if you are using the patches from Rob Clark above, you do not need
+<code>pd_ignore_unused</code> or <code>clk_ignore_unused</code> - only <code>efi=novamap</code> is required.</p>
+<p>So you could do something like this instead</p>
+<pre><code class="language-config" data-lang="config">GRUB_DEFAULT=0
+#GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT=2
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2&gt; /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;efi=novamap&quot;
+GRUB_CMDLINE_LINUX=&quot;&quot;
+</code></pre><hr>
+<h3 id="firmware">Firmware:</h3>
+<p>In terms of firmware, things get a wee bit funky.  I&rsquo;m a bit lazy, so I&rsquo;ll use a script that <a href="https://github.com/celliwig">Celliwig</a> wrote (<a href="https://github.com/celliwig/lenovo-yoga-c630">https://github.com/celliwig/lenovo-yoga-c630</a>)
+This is all done on a c630 system, since we have to pull some signed firmware from the Windows partition(s?) - This script does require python2 as of 18 May 2020, so keep that in mind if you&rsquo;re using something like Ubuntu 20.04 where python3 is the default.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/celliwig/lenovo-yoga-c630
+pushd lenovo-yoga-c630/yoga_fw_extract
+./yoga_fw_extract.sh
+popd
+</code></pre></div><p>We&rsquo;re also going to need a copy of the linux-firmware git repo (though on Gentoo, the linux-firmware package is new enough)</p>
+<p><code>git clone https://kernel.googlesource.com/pub/scm/linux/kernel/git/firmware/linux-firmware.git</code></p>
+<p>Now lets move some files around&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pushd /lib/firmware/qcom
+sudo mkdir -p LENOVO/81JL
+<span style="color:#75715e"># Because I couldn&#39;t get things to work properly with symlinks...</span>
+sudo cp c630/* LENOVO/81JL/
+sudo cp ~/linux-firmware/qcom/sdm845/*.jsn LENOVO/81JL/
+<span style="color:#75715e"># We need the zap firmware for the GPU shader, which celliwig&#39;s script doesn&#39;t seem to pull.</span>
+sudo mount <span style="color:#66d9ef">$(</span>blkid -L Windows<span style="color:#66d9ef">)</span> /mnt
+find /mnt/Windows -iname qcdxkmsuc850.mbn
+sudo cp $one_of_the_above_results LENOVO/81JL/
+<span style="color:#75715e"># Bluetooth firmware, if you want it.</span>
+sudo cp ~/linux-firmware/qca/* /lib/firmware/qca/
+popd
+</code></pre></div><hr>
+<h3 id="services">Services</h3>
+<p>Now&hellip; we need some services, because the firmware are actually Hexagon binaries that run on a VM of the modem processor (If I understand it correctly, that is)
+As of 5.7, qrtr-ns is implemented in the kernel, however, because the other services depen on libqrtr.so from it, we still need to install it.  qrtr-ns also detects whether you&rsquo;re on &gt; 5.7, and if so, it does nothing.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir services
+cd services
+git clone https://github.com/andersson/qrtr
+cd qrtr
+make <span style="color:#f92672">&amp;&amp;</span> sudo make install <span style="color:#f92672">&amp;&amp;</span> sudo systemctl enable --now qrtr-ns.service
+<span style="color:#75715e"># To make sure things can find libqrtr.so.1, regenerate the /etc/ld.so.cache</span>
+sudo ldconfig
+cd ..
+sudo apt install libudev-dev <span style="color:#75715e">#on Debian based systems</span>
+git clone https://github.com/andersson/rmtfs
+cd rmtfs
+make <span style="color:#f92672">&amp;&amp;</span> sudo make install <span style="color:#f92672">&amp;&amp;</span> sudo systemctl enable --now rmtfs.service
+cd ..
+git clone https://github.com/andersson/pd-mapper
+cd pd-mapper
+make <span style="color:#f92672">&amp;&amp;</span> sudo make install <span style="color:#f92672">&amp;&amp;</span> sudo systemctl enable --now pd-mapper.service
+cd ..
+git clone https://github.com/andersson/tqftpserv
+make <span style="color:#f92672">&amp;&amp;</span> sudo make install <span style="color:#f92672">&amp;&amp;</span> sudo systemctl enable --now tqftpserv.service
+cd ~
+</code></pre></div><hr>
+<p>This isn&rsquo;t the full setup, but it gets most of the steps there.  I still haven&rsquo;t fully looked into Grub as I&rsquo;ve started off on the bionic image (and on my Kali installs, apt-mark hold grub-common grub-efi-arm64 grub-efi-arm64-bin grub2-common) so I&rsquo;m not quite fully there on an installation just yet.</p>
+<hr>
+<h3 id="update">Update:</h3>
+<p>To get audio working, you&rsquo;re going to need the ucm files as well,
+although there&rsquo;s a bit of question about the proper place they go.  People have
+had different results, I had to move mine into a specific directory that isn&rsquo;t
+in the repo - if that doesn&rsquo;t work, then you can try the same folder as mine,
+but typically you can check the dmesg output to see where it&rsquo;s trying to load
+the files from - or like me, I just copy to both places&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/srinivas-kandagatla/alsa-ucm-conf -b wip/DB845c
+cd alsa-ucm-conf/ucm2
+<span style="color:#75715e"># First copy the codecs we need</span>
+sudo cp -a codecs/w* /usr/share/alsa/ucm2/codecs/
+<span style="color:#75715e"># Now the actual profiles</span>
+sudo cp -a Lenovo-YOGA-C63 /usr/share/alsa/ucm2/
+cd /usr/share/alsa/ucm2
+sudo cp -a Lenovo-YOGA-C63 Lenovo-YOGA-C630-13Q50
+cd Lenovo-YOGA-C630-13Q50
+sudo mv LENOVO-81JL-LenovoYOGAC630_13Q50-LNVNB161216.conf LENOVO-81JL-LenovoYOGAC630_13Q50.conf
+sudo ln -s LENOVO-81JL-LenovoYOGAC630_13Q50.conf /usr/share/alsa/ucm2/Lenovo-YOGA-C630-13Q50/Lenovo-YOGA-C630-13Q50.conf
+</code></pre></div><hr>
+<h3 id="notes">Notes</h3>
+<p>X doesn&rsquo;t run properly currently, you will get lots of screen flickering, however Wayland based DEs/WMs work fine.  I&rsquo;ve personally tested Sway and Gnome.</p>
+<h5 id="update-rob-clark-was-able-to-track-the-issue-down-in-mesa">Update: Rob Clark was able to track the issue down in mesa.</h5>
+<p>Update for mesa 19.3.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5192">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5192</a>
+Update for mesa 20.0.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5190">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5190</a>
+Update for Mesa 20.1.x - <a href="https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5188">https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/5188</a></p>
+<p>Another thing to note, the reason why I&rsquo;m cherry picking from robclark instead
+of just merging in his wip/c630-5.7 branch, is because of commit <code>f82139e</code> - you
+absolutely can use it, however, you also need to use his dtbloader.  I didn&rsquo;t
+want to but if you want to play around, he&rsquo;s got prebuilt binaries at
+<a href="https://people.freedesktop.org/~robclark/DtbLoader.efi">https://people.freedesktop.org/~robclark/DtbLoader.efi</a> and
+<a href="https://people.freedesktop.org/~robclark/Shell.efi">https://people.freedesktop.org/~robclark/Shell.efi</a> - and a readme for it can
+be found at <a href="https://github.com/robclark/edk2/blob/dtbloader-chid/Readme.md">https://github.com/robclark/edk2/blob/dtbloader-chid/Readme.md</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>First Blog Post</title>
+            <link>https://steev.net/posts/2020/05/first-blog-post/</link>
+            <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+            
+            <guid>https://steev.net/posts/2020/05/first-blog-post/</guid>
+            <description>Welp, let&amp;rsquo;s try this again. See if hosting a blog via github and letting me push automatically updating the blog is better than having to login to a website and randomly enter text and shit.</description>
+            <content type="html"><![CDATA[<p>Welp, let&rsquo;s try this again.  See if hosting a blog via github and letting me push automatically updating the blog is better than having to login to a website and randomly enter text and shit.</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>
