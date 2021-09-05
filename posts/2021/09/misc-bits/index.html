@@ -49,7 +49,7 @@ In order to actually build the package itself though, I had to run the following
 export ARCH=arm64 export CC=aarch64-linux-gnu-gcc-10 dpkg-architecture --host-arch arm64 dpkg-architecture -c fakeroot debian/rules maintainerclean dpkg-architecture -c debian/rules orig dpkg-architecture -c debian/rules debian/control dpkg-architecture -c fakeroot debian/rules binary-indep dpkg-architecture -c fakeroot debian/rules binary-arch This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.">
 <meta itemprop="datePublished" content="2021-09-04T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2021-09-04T00:00:00+00:00" />
-<meta itemprop="wordCount" content="106">
+<meta itemprop="wordCount" content="169">
 <meta itemprop="image" content="https://steev.net"/>
 
 
@@ -188,6 +188,25 @@ dpkg-architecture -c debian/rules debian/control
 dpkg-architecture -c fakeroot debian/rules binary-indep
 dpkg-architecture -c fakeroot debian/rules binary-arch
 </code></pre><p>This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.</p>
+<p>Additionally, assuming you haven&rsquo;t already you do need to rung <code>dpkg --add-architecture arm64</code> as well as <code>apt update</code>.  In order to get the debian package to build, you will need to install:</p>
+<pre><code>dvipng:arm64
+libbabeltrace-dev:arm64
+libcap-dev:arm64
+libdw-dev:arm64
+libelf-dev:arm64
+libglib2.0-dev:arm64
+libiberty-dev:arm64
+libnewt-dev:arm64
+libnuma-dev:arm64
+libopencsd-dev:arm64
+libpci-dev:arm64
+libperl-dev:arm64
+libssl-dev:arm64
+libudev-dev:arm64
+libunwind-dev:arm64
+libwrap0-dev:arm64
+zlib1g-dev:arm64
+</code></pre><p>Note that additional packages will be installed, but that&rsquo;s the list of <em>required</em> packages.</p>
 
       </div>
     </article>
@@ -218,7 +237,7 @@ dpkg-architecture -c fakeroot debian/rules binary-arch
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        106 Words
+        169 Words
       </p>
 
       <p>
