@@ -6,8 +6,31 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Sat, 04 Sep 2021 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://steev.net/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Misc bits</title>
+            <link>https://steev.net/posts/2021/09/misc-bits/</link>
+            <pubDate>Sat, 04 Sep 2021 00:00:00 +0000</pubDate>
+            
+            <guid>https://steev.net/posts/2021/09/misc-bits/</guid>
+            <description>Attempting to patch the debian 5.14 experimental kernel with the c630 bits. There seems to be some issue with the battery driver as it keeps claiming that i2c_transfer is an implicit declaration. Need to look into that.
+In order to actually build the package itself though, I had to run the following commands that diederik gave me on #debian-kernel on oftc:
+export ARCH=arm64 export CC=aarch64-linux-gnu-gcc-10 dpkg-architecture --host-arch arm64 dpkg-architecture -c fakeroot debian/rules maintainerclean dpkg-architecture -c debian/rules orig dpkg-architecture -c debian/rules debian/control dpkg-architecture -c fakeroot debian/rules binary-indep dpkg-architecture -c fakeroot debian/rules binary-arch This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.</description>
+            <content type="html"><![CDATA[<p>Attempting to patch the debian 5.14 experimental kernel with the c630 bits.  There seems to be some issue with the battery driver as it keeps claiming that i2c_transfer is an implicit declaration.  Need to look into that.</p>
+<p>In order to actually build the package itself though, I had to run the following commands that diederik gave me on #debian-kernel on oftc:</p>
+<pre><code>export ARCH=arm64
+export CC=aarch64-linux-gnu-gcc-10
+dpkg-architecture --host-arch arm64
+dpkg-architecture -c fakeroot debian/rules maintainerclean
+dpkg-architecture -c debian/rules orig
+dpkg-architecture -c debian/rules debian/control
+dpkg-architecture -c fakeroot debian/rules binary-indep
+dpkg-architecture -c fakeroot debian/rules binary-arch
+</code></pre><p>This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Lenovo Yoga C630 Progress - 2021 Edition</title>
