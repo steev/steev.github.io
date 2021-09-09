@@ -17,7 +17,7 @@
             <guid>https://steev.net/posts/2021/09/misc-bits/</guid>
             <description>Attempting to patch the debian 5.14 experimental kernel with the c630 bits. There seems to be some issue with the battery driver as it keeps claiming that i2c_transfer is an implicit declaration. Need to look into that.
 In order to actually build the package itself though, I had to run the following commands that diederik gave me on #debian-kernel on oftc:
-export ARCH=arm64 export CC=aarch64-linux-gnu-gcc-10 dpkg-architecture --host-arch arm64 dpkg-architecture -c fakeroot debian/rules maintainerclean dpkg-architecture -c debian/rules orig dpkg-architecture -c debian/rules debian/control dpkg-architecture -c fakeroot debian/rules binary-indep dpkg-architecture -c fakeroot debian/rules binary-arch This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.</description>
+export ARCH=arm64 export CC=aarch64-linux-gnu-gcc-10 dpkg-architecture --host-arch arm64 dpkg-architecture -c fakeroot debian/rules maintainerclean dpkg-architecture -c debian/rules orig dpkg-architecture -c debian/rules debian/control dpkg-architecture -c fakeroot debian/rules binary-indep dpkg-architecture -c fakeroot debian/rules binary-arch -j$(nproc) This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.</description>
             <content type="html"><![CDATA[<p>Attempting to patch the debian 5.14 experimental kernel with the c630 bits.  There seems to be some issue with the battery driver as it keeps claiming that i2c_transfer is an implicit declaration.  Need to look into that.</p>
 <p>In order to actually build the package itself though, I had to run the following commands that diederik gave me on #debian-kernel on oftc:</p>
 <pre><code>export ARCH=arm64
@@ -27,9 +27,9 @@ dpkg-architecture -c fakeroot debian/rules maintainerclean
 dpkg-architecture -c debian/rules orig
 dpkg-architecture -c debian/rules debian/control
 dpkg-architecture -c fakeroot debian/rules binary-indep
-dpkg-architecture -c fakeroot debian/rules binary-arch
+dpkg-architecture -c fakeroot debian/rules binary-arch -j$(nproc)
 </code></pre><p>This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.</p>
-<p>Additionally, assuming you haven&rsquo;t already you do need to rung <code>dpkg --add-architecture arm64</code> as well as <code>apt update</code>.  In order to get the debian package to build, you will need to install:</p>
+<p>Additionally, assuming you haven&rsquo;t already you do need to run <code>dpkg --add-architecture arm64</code> as well as <code>apt update</code>.  In order to get the debian package to build, you will need to install:</p>
 <pre><code>dvipng:arm64
 libbabeltrace-dev:arm64
 libcap-dev:arm64
