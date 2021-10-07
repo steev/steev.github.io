@@ -173,17 +173,17 @@ export ARCH=arm64 export CC=aarch64-linux-gnu-gcc-10 dpkg-architecture --host-ar
       <div class="post-content">
         <p>Attempting to patch the debian 5.14 experimental kernel with the c630 bits.  There seems to be some issue with the battery driver as it keeps claiming that i2c_transfer is an implicit declaration.  Need to look into that.</p>
 <p>In order to actually build the package itself though, I had to run the following commands that diederik gave me on #debian-kernel on oftc:</p>
-<pre><code>export ARCH=arm64
-export CC=aarch64-linux-gnu-gcc-10
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export ARCH<span style="color:#f92672">=</span>arm64
+export CC<span style="color:#f92672">=</span>aarch64-linux-gnu-gcc-10
 dpkg-architecture --host-arch arm64
 dpkg-architecture -c fakeroot debian/rules maintainerclean
 dpkg-architecture -c debian/rules orig
 dpkg-architecture -c debian/rules debian/control
-dpkg-architecture -c fakeroot debian/rules binary-indep -j$(nproc)
-dpkg-architecture -c fakeroot debian/rules binary-arch -j$(nproc)
-</code></pre><p>This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.</p>
+dpkg-architecture -c fakeroot debian/rules binary-indep -j<span style="color:#66d9ef">$(</span>nproc<span style="color:#66d9ef">)</span>
+dpkg-architecture -c fakeroot debian/rules binary-arch -j<span style="color:#66d9ef">$(</span>nproc<span style="color:#66d9ef">)</span>
+</code></pre></div><p>This will tell debian to build the package using the dpkg-architecture of arm64, on amd64.</p>
 <p>Additionally, assuming you haven&rsquo;t already you do need to run <code>dpkg --add-architecture arm64</code> as well as <code>apt update</code>.  In order to get the debian package to build, you will need to install:</p>
-<pre><code>dvipng:arm64
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dvipng:arm64
 libbabeltrace-dev:arm64
 libcap-dev:arm64
 libdw-dev:arm64
@@ -200,7 +200,7 @@ libudev-dev:arm64
 libunwind-dev:arm64
 libwrap0-dev:arm64
 zlib1g-dev:arm64
-</code></pre><p>Note that additional packages will be installed, but that&rsquo;s the list of <em>required</em> packages.</p>
+</code></pre></div><p>Note that additional packages will be installed, but that&rsquo;s the list of <em>required</em> packages.</p>
 
       </div>
     </article>
